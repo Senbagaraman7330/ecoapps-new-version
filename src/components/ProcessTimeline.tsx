@@ -50,7 +50,7 @@ interface ProcessTimelineProps {
 }
 
 export default function ProcessTimeline({ onHover, onLeave }: ProcessTimelineProps) {
-  const [reachedSteps, setReachedSteps] = useState<boolean[]>([true, false, false]);
+  const [reachedSteps, setReachedSteps] = useState<boolean[]>([false, false, false]);
   const sectionRef = useRef<HTMLDivElement>(null);
   const trackFillRef = useRef<HTMLDivElement>(null);
   const railDotRef = useRef<HTMLDivElement>(null);
@@ -60,39 +60,35 @@ export default function ProcessTimeline({ onHover, onLeave }: ProcessTimelinePro
       const rows = document.querySelectorAll<HTMLElement>('.timeline_row');
       if (rows.length < 3) return;
 
-      // 1. Continuous Line Progress Fill synced with scroll between Row 1 and Row 3
+      // Ensure Step 1 arrow is active by default or when it reaches center
+      setReachedSteps([true, false, false]);
+
+      // 1. Continuous Line Progress Fill strictly between Row 1 Center and Row 3 Center
       ScrollTrigger.create({
         trigger: rows[0],
         endTrigger: rows[2],
-        start: 'top 55%',
-        end: 'bottom 65%',
-        scrub: 0.2,
+        start: 'center center', // Start filling exactly when Row 1 is at screen center
+        end: 'center center',   // Stop filling exactly when Row 3 is at screen center
+        scrub: 0.1,
         onUpdate: (self) => {
           const progress = self.progress;
 
-          // Fill vertical line to match exact scroll position
+          // Fill vertical line to match exact scroll position from node 1 to node 3
           if (trackFillRef.current) {
             trackFillRef.current.style.height = `${Math.min(100, progress * 100)}%`;
           }
 
-          // Move the right rail indicator dot
+          // Move the right rail indicator dot exactly proportionally
           if (railDotRef.current && sectionRef.current) {
             const maxTravel = sectionRef.current.offsetHeight - 260;
             railDotRef.current.style.transform = `translateY(${progress * maxTravel}px)`;
           }
-
-          // State synchronization as backup
-          setReachedSteps((prev) => {
-            const step2Reached = progress >= 0.40 || prev[1];
-            const step3Reached = progress >= 0.85 || prev[2];
-            return [true, step2Reached, step3Reached];
-          });
         },
       });
 
-      // 2. Dedicated triggers on each individual row to guarantee arrow button appearance
+      // 2. Strict Center-Triggered Arrow and Card Activations
       rows.forEach((row, index) => {
-        // Active text & tag highlight when row is in focus
+        // This toggle handles text and tag highlights
         ScrollTrigger.create({
           trigger: row,
           start: 'top 55%',
@@ -100,11 +96,11 @@ export default function ProcessTimeline({ onHover, onLeave }: ProcessTimelinePro
           toggleClass: { targets: row, className: 'is-active' },
         });
 
-        // Trigger arrow appearance as soon as the row reaches center threshold
+        // Trigger arrow appearance ONLY when the row reaches exactly the center of the screen
         if (index > 0) {
           ScrollTrigger.create({
             trigger: row,
-            start: 'top 60%',
+            start: 'center center', // Exactly at the center of the screen
             onEnter: () => {
               setReachedSteps((prev) => {
                 const next = [...prev];
