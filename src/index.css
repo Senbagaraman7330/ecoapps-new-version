@@ -317,6 +317,30 @@
 .title-inner {
   display: inline-block;
   will-change: transform;
+  transform: translateY(110%);
+}
+
+.hero-desc,
+.cta-btn,
+.secondary-btn,
+.site-header,
+.workspace {
+  opacity: 0;
+}
+
+.tile {
+  opacity: 0;
+}
+
+.constellation-lines path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.sword-inner {
+  display: inline-block;
+  transform: translateY(110%);
+  will-change: transform;
 }
 
 .gradient-text-blue {

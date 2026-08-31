@@ -52,7 +52,7 @@ export default function App() {
       });
 
       // Initial State settings
-      gsap.set('.site-header, .hero-badge, .hero-desc, .hero-cta-wrap, .workspace', { opacity: 0 });
+      gsap.set('.site-header, .hero-desc, .cta-btn, .secondary-btn, .workspace', { opacity: 0 });
       gsap.set('.title-inner', { y: '110%' });
       gsap.set('.tile', { opacity: 0, scale: 0 });
 
@@ -60,33 +60,32 @@ export default function App() {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       tl.to('.site-header', { opacity: 1, duration: 0.8 }, 0)
-        .to('.hero-badge', { opacity: 1, y: 0, duration: 0.6 }, 0.1)
         .to(
           '.title-inner',
           { y: 0, duration: 1.1, stagger: 0.08, ease: 'power4.out' },
           0.2
         )
-        .to('.hero-desc', { opacity: 1, y: 0, duration: 0.8 }, 0.8)
-        .fromTo(
-          '.hero-desc',
-          { y: 20 },
-          { y: 0, duration: 0.8 },
-          0.8
-        )
-        .to('.hero-cta-wrap', { opacity: 1, duration: 0.7 }, 0.95)
-        .fromTo(
-          '.hero-cta-wrap',
-          { y: 20 },
-          { y: 0, duration: 0.7 },
-          0.95
-        )
+        .to('.hero-desc', { opacity: 1, duration: 0.8 }, 0.9)
+        .from('.hero-desc', { y: 20, duration: 0.8 }, 0.9)
+        .to('.cta-btn, .secondary-btn', { opacity: 1, duration: 0.7, stagger: 0.1 }, 1.0)
+        .from('.cta-btn, .secondary-btn', { y: 20, duration: 0.7, stagger: 0.1 }, 1.0)
         .to(
           '.tile',
           {
             opacity: 1,
             scale: 1,
             duration: 1.2,
-            stagger: { each: 0.06, from: 'center' },
+            stagger: { each: 0.07, from: 'center' },
+            ease: 'elastic.out(1, 0.6)'
+          },
+          0.5
+        )
+        .from(
+          '.tile',
+          {
+            scale: 0,
+            duration: 1.2,
+            stagger: { each: 0.07, from: 'center' },
             ease: 'elastic.out(1, 0.6)'
           },
           0.5
@@ -96,12 +95,12 @@ export default function App() {
           {
             strokeDashoffset: 0,
             duration: 1.4,
-            stagger: 0.05,
+            stagger: 0.06,
             ease: 'power2.inOut'
           },
           0.8
         )
-        .to('.workspace', { opacity: 1, duration: 0.8 }, 1.4)
+        .to('.workspace', { opacity: 1, duration: 0.8 }, 1.6)
         .from(
           '.fpill',
           {
@@ -112,12 +111,12 @@ export default function App() {
             stagger: 0.1,
             ease: 'back.out(1.6)'
           },
-          1.4
+          1.6
         )
         .from(
           '.workspace-label, .learn-more',
           { y: 20, opacity: 0, duration: 0.6, stagger: 0.1 },
-          1.4
+          1.6
         );
 
       // 3. Hero Parallax Scroll
@@ -174,7 +173,14 @@ export default function App() {
       });
 
       // 5. Section Title Word-by-Word Scroll Reveals
-      const revealWords = (selector: string, triggerSel: string, isAccentHighlight = false) => {
+      const revealWords = (
+        selector: string,
+        triggerSel: string,
+        duration: number,
+        stagger: number,
+        start: string,
+        isAccentHighlight = false
+      ) => {
         const elements = document.querySelectorAll<HTMLElement>(selector);
         elements.forEach((el) => {
           const text = el.innerText;
@@ -189,20 +195,20 @@ export default function App() {
 
         gsap.to(`${selector} .sword-inner`, {
           y: 0,
-          duration: 1,
-          stagger: 0.035,
+          duration: duration,
+          stagger: stagger,
           ease: 'power4.out',
           scrollTrigger: {
             trigger: triggerSel,
-            start: 'top 80%',
+            start: start,
             toggleActions: 'play none none reverse'
           }
         });
       };
 
-      revealWords('.features-title-reveal', '.features-head');
-      revealWords('.quote-text-reveal', '.quote-section');
-      revealWords('.final-cta-h2-reveal', '.final-cta-card', true);
+      revealWords('.features-title-reveal', '.features-title-reveal', 1, 0.04, 'top 80%');
+      revealWords('.quote-text-reveal', '.quote-text-reveal', 0.9, 0.03, 'top 75%');
+      revealWords('.final-cta-h2-reveal', '.final-cta-h2-reveal', 1, 0.05, 'top 80%', true);
 
       // 6. Feature Cards Stagger In
       gsap.from('.feature-card', {
