@@ -1,0 +1,170 @@
+/* Constellation 3D and tile floating keyframes */
+.constellation {
+  perspective: 1500px;
+  transform-style: preserve-3d;
+}
+
+.constellation-inner {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.constellation-lines path {
+  fill: none;
+  stroke: rgba(14, 165, 233, 0.7);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+/* Floating animation per tile */
+.tile {
+  transform-style: preserve-3d;
+  will-change: transform;
+  animation: tile-float var(--dur, 5s) ease-in-out infinite var(--delay, 0s);
+}
+
+@keyframes tile-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(var(--float, -8px));
+  }
+}
+
+.tile-lock {
+  top: 0;
+  left: calc(50% - 32px);
+  --dur: 4s;
+  --delay: 0s;
+  --float: -6px;
+}
+.tile-expand {
+  top: 95px;
+  left: 95px;
+  --dur: 5.5s;
+  --delay: 0.4s;
+  --float: -10px;
+}
+.tile-chart {
+  top: 95px;
+  left: 365px;
+  --dur: 5s;
+  --delay: 0.8s;
+  --float: -8px;
+}
+.tile-cloud {
+  top: 245px;
+  left: 5px;
+  --dur: 6s;
+  --delay: 1.2s;
+  --float: -12px;
+}
+.tile-db {
+  top: 240px;
+  left: 222px;
+  --dur: 4.5s;
+  --delay: 0.2s;
+  --float: -7px;
+}
+.tile-thumb {
+  top: 245px;
+  left: 455px;
+  --dur: 5.5s;
+  --delay: 0.6s;
+  --float: -10px;
+}
+.tile-cursor {
+  top: 405px;
+  left: 45px;
+  --dur: 4s;
+  --delay: 1s;
+  --float: -8px;
+}
+.tile-person {
+  top: 395px;
+  left: 145px;
+  --dur: 5s;
+  --delay: 0.3s;
+  --float: -9px;
+}
+.tile-globe {
+  top: 395px;
+  left: 315px;
+  --dur: 5.5s;
+  --delay: 0.7s;
+  --float: -11px;
+}
+.tile-thumbpill {
+  top: 405px;
+  left: 495px;
+  --dur: 4.5s;
+  --delay: 0.5s;
+  --float: -7px;
+}
+.tile-hex {
+  top: 545px;
+  left: 230px;
+  --dur: 6s;
+  --delay: 0.9s;
+  --float: -10px;
+}
+
+/* Tile styling variants */
+.tile-cyan-grad {
+  background: linear-gradient(165deg, #ffffff 0%, #e0f2fe 30%, #bae6fd 70%, #7dd3fc 100%);
+  box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -4px 0 rgba(2, 132, 199, 0.2),
+    inset 0 0 25px rgba(255, 255, 255, 0.6),
+    0 12px 24px rgba(14, 165, 233, 0.28),
+    0 24px 48px rgba(2, 132, 199, 0.1);
+  color: #0369a1;
+  border: 1px solid rgba(186, 230, 253, 0.8);
+}
+
+.tile-blue-grad {
+  background: linear-gradient(165deg, #ffffff 0%, #dbeafe 30%, #bfdbfe 70%, #93c5fd 100%);
+  box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -4px 0 rgba(37, 99, 235, 0.2),
+    inset 0 0 25px rgba(255, 255, 255, 0.6),
+    0 12px 24px rgba(37, 99, 235, 0.28),
+    0 24px 48px rgba(30, 64, 175, 0.1);
+  color: #1d4ed8;
+  border: 1px solid rgba(191, 219, 254, 0.8);
+}
+
+.tile-indigo-grad {
+  background: linear-gradient(165deg, #ffffff 0%, #e0e7ff 30%, #c7d2fe 70%, #a5b4fc 100%);
+  box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -4px 0 rgba(99, 102, 241, 0.2),
+    inset 0 0 25px rgba(255, 255, 255, 0.6),
+    0 12px 24px rgba(99, 102, 241, 0.28),
+    0 24px 48px rgba(67, 56, 202, 0.1);
+  color: #4338ca;
+  border: 1px solid rgba(199, 210, 254, 0.8);
+}
+
+.tile-navy-grad {
+  background: linear-gradient(165deg, #1e293b 0%, #0f172a 50%, #030712 100%);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.6),
+    inset 0 0 30px rgba(56, 189, 248, 0.1),
+    0 14px 28px rgba(15, 23, 42, 0.35),
+    0 28px 56px rgba(2, 6, 23, 0.2);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.sparkle {
+  animation: spin 8s linear infinite, sparkleFloat 4s ease-in-out infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes sparkleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
