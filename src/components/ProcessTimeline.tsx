@@ -60,40 +60,39 @@ export default function ProcessTimeline({ onHover, onLeave }: ProcessTimelinePro
       const rows = document.querySelectorAll<HTMLElement>('.timeline_row');
       if (rows.length < 3) return;
 
-      // Master ScrollTrigger for the Timeline Section
+      // 1. Continuous Line Progress Fill synced with scroll between Row 1 and Row 3
       ScrollTrigger.create({
-        trigger: '.workflow-section',
-        start: 'top 60%',
-        end: 'bottom 80%',
-        scrub: 0.3,
+        trigger: rows[0],
+        endTrigger: rows[2],
+        start: 'top 55%',
+        end: 'bottom 65%',
+        scrub: 0.2,
         onUpdate: (self) => {
           const progress = self.progress;
 
-          // 1. Update the line height
+          // Fill vertical line to match exact scroll position
           if (trackFillRef.current) {
             trackFillRef.current.style.height = `${Math.min(100, progress * 100)}%`;
           }
 
-          // 2. Update the right rail dot position
-          if (railDotRef.current) {
-            const railHeight = sectionRef.current?.offsetHeight ? sectionRef.current.offsetHeight - 240 : 800;
-            railDotRef.current.style.transform = `translateY(${progress * railHeight}px)`;
+          // Move the right rail indicator dot
+          if (railDotRef.current && sectionRef.current) {
+            const maxTravel = sectionRef.current.offsetHeight - 260;
+            railDotRef.current.style.transform = `translateY(${progress * maxTravel}px)`;
           }
 
-          // 3. Step reaching logic:
-          // Step 1 is always reached once section is visible
-          // Step 2 is reached around 45% - 50% scroll progress (when the line touches Step 2's circle)
-          // Step 3 is reached around 85% - 90% scroll progress (when the line touches Step 3's circle)
-          const isStep1Reached = true;
-          const isStep2Reached = progress >= 0.42;
-          const isStep3Reached = progress >= 0.82;
-
-          setReachedSteps([isStep1Reached, isStep2Reached, isStep3Reached]);
+          // State synchronization as backup
+          setReachedSteps((prev) => {
+            const step2Reached = progress >= 0.40 || prev[1];
+            const step3Reached = progress >= 0.85 || prev[2];
+            return [true, step2Reached, step3Reached];
+          });
         },
       });
 
-      // Individual row trigger to activate the specific row's text highlight
-      rows.forEach((row) => {
+      // 2. Dedicated triggers on each individual row to guarantee arrow button appearance
+      rows.forEach((row, index) => {
+        // Active text & tag highlight when row is in focus
         ScrollTrigger.create({
           trigger: row,
           start: 'top 55%',
@@ -101,18 +100,27 @@ export default function ProcessTimeline({ onHover, onLeave }: ProcessTimelinePro
           toggleClass: { targets: row, className: 'is-active' },
         });
 
-        // Entrance animation for cards
-        gsap.from(row.querySelector('.timeline_item'), {
-          y: 40,
-          opacity: 0.8,
-          duration: 0.8,
-          ease: 'power2.out',
-          scrollTrigger: {
+        // Trigger arrow appearance as soon as the row reaches center threshold
+        if (index > 0) {
+          ScrollTrigger.create({
             trigger: row,
-            start: 'top 75%',
-            toggleActions: 'play none none reverse',
-          },
-        });
+            start: 'top 60%',
+            onEnter: () => {
+              setReachedSteps((prev) => {
+                const next = [...prev];
+                next[index] = true;
+                return next;
+              });
+            },
+            onLeaveBack: () => {
+              setReachedSteps((prev) => {
+                const next = [...prev];
+                next[index] = false;
+                return next;
+              });
+            },
+          });
+        }
       });
     }, sectionRef);
 
@@ -125,7 +133,7 @@ export default function ProcessTimeline({ onHover, onLeave }: ProcessTimelinePro
       className="workflow-section relative px-6 md:px-14 py-28 md:py-36 bg-white border-b border-slate-200 overflow-hidden"
       id="process"
     >
-      {/* Right Edge Rail with Tracking Dot (Orbix Studio signature detail) */}
+      {/* Right Edge Rail with Tracking Dot */}
       <div className="timeline-right-rail" aria-hidden="true">
         <div ref={railDotRef} className="timeline-rail-dot"></div>
       </div>
@@ -172,12 +180,12 @@ export default function ProcessTimeline({ onHover, onLeave }: ProcessTimelinePro
                   <div className="step-title-italic">{step.stepName}</div>
                 </div>
 
-                {/* Center Node Indicator on Track */}
+                {/* Center Column: 100% Mathematically Centered Arrow Node */}
                 <div className="timeline_circle-wrapper">
                   {/* Subtle placeholder ring before line reaches this step */}
                   <div className="timeline_circle-placeholder"></div>
 
-                  {/* Active Circle Halo with Downward Arrow Button */}
+                  {/* Active Circle Halo with Centered Downward Arrow Button */}
                   <div className="timeline_circle-outer">
                     <div className="timeline_circle-inner">
                       <svg
@@ -185,7 +193,6 @@ export default function ProcessTimeline({ onHover, onLeave }: ProcessTimelinePro
                         height="16"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        className="transform rotate-0"
                       >
                         <path d="M12 16L6 10H18L12 16Z" />
                       </svg>
