@@ -226,25 +226,25 @@ export default function App() {
       });
 
       // 6.1 Process Timeline Scroll Progress & Row Animations
-      gsap.to('.timeline-track-fill', {
+      gsap.to('#timelineProgressFill', {
         height: '100%',
         ease: 'none',
         scrollTrigger: {
-          trigger: '.timeline-container',
+          trigger: '.timeline-content',
           start: 'top 70%',
           end: 'bottom 60%',
           scrub: 1
         }
       });
 
-      gsap.from('.timeline-row', {
+      gsap.from('.timeline_row', {
         y: 60,
         opacity: 0,
         duration: 1,
         stagger: 0.25,
         ease: 'power3.out',
         scrollTrigger: {
-          trigger: '.timeline-container',
+          trigger: '.timeline-content',
           start: 'top 80%',
           toggleActions: 'play none none reverse'
         }
