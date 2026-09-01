@@ -14,28 +14,28 @@ export default function Hero({
   onLeave,
 }: HeroProps) {
   return (
-    <main className="hero grid grid-cols-1 lg:grid-cols-[1fr_1.15fr] gap-10 px-2 md:px-14 py-12 md:py-14 items-center relative z-10 min-h-[720px]">
-      <div className="hero-left pt-2 pl-2">
+    <main className="hero grid grid-cols-1 lg:grid-cols-[1.12fr_0.88fr] gap-6 md:gap-10 px-6 md:px-14 py-12 md:py-16 items-center relative z-10 min-h-[720px]">
+      <div className="hero-left pt-2 pl-0">
         <div className="hero-badge inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-100 border border-sky-200 text-sky-700 text-xs font-bold tracking-wider mb-6 shadow-sm">
           <span className="hero-badge-pulse w-2 h-2 rounded-full bg-sky-600"></span>
           <span>NEXT-GENERATION DIGITAL GROWTH AGENCY</span>
         </div>
 
-        <h1 className="hero-title font-['Plus_Jakarta_Sans'] font-extrabold text-[clamp(44px,5.4vw,80px)] leading-[1.04] tracking-[-0.035em] mb-7 text-[#0b1528]">
-          <span className="title-line block overflow-hidden pb-[0.08em]">
-            <span className="title-inner inline-block will-change-transform">Digital Marketing</span>
+        <h1 className="hero-title font-['Plus_Jakarta_Sans'] font-extrabold text-[clamp(32px,3.8vw,56px)] leading-[1.1] tracking-[-0.035em] mb-7 text-[#0b1528]">
+          <span className="title-line block overflow-hidden pb-[0.06em]">
+            <span className="title-inner inline-block whitespace-nowrap will-change-transform">Digital Marketing</span>
           </span>
-          <span className="title-line block overflow-hidden pb-[0.08em]">
-            <span className="title-inner inline-block will-change-transform">Agency in Coimbatore</span>
+          <span className="title-line block overflow-hidden pb-[0.06em]">
+            <span className="title-inner inline-block whitespace-nowrap will-change-transform">Agency in Coimbatore</span>
           </span>
-          <span className="title-line block overflow-hidden pb-[0.08em]">
-            <span className="title-inner inline-block will-change-transform bg-gradient-to-r from-sky-600 via-blue-600 to-indigo-700 bg-clip-text text-transparent">
+          <span className="title-line block overflow-hidden pb-[0.06em]">
+            <span className="title-inner inline-block whitespace-nowrap will-change-transform bg-gradient-to-r from-sky-600 via-blue-600 to-indigo-700 bg-clip-text text-transparent">
               That Builds Growth
             </span>
           </span>
         </h1>
 
-        <p className="hero-desc font-['Manrope'] text-[17px] leading-[1.65] text-slate-600 max-w-[520px] mb-9">
+        <p className="hero-desc font-['Manrope'] text-[16px] md:text-[17px] leading-[1.65] text-slate-600 max-w-[500px] mb-9">
           We combine AI, performance marketing, SEO, creative strategy and technology to help ambitious businesses attract better customers, generate qualified leads and grow revenue.
         </p>
 
@@ -63,10 +63,34 @@ export default function Hero({
             Explore Our Services
           </a>
         </div>
+
+        {/* Secondary Positioning — Services Specialism Strip */}
+        <div className="mt-8 pt-7 border-t border-slate-200/80">
+          <p className="font-['Manrope'] text-[10.5px] font-bold uppercase tracking-[0.18em] text-slate-400 mb-3">
+            Our specialisms
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {[
+              'Performance Marketing',
+              'AI Digital Marketing',
+              'SEO',
+              'AI SEO',
+              'Web Development',
+              'Automation',
+            ].map((tag) => (
+              <span
+                key={tag}
+                className="inline-flex items-center px-3.5 py-1.5 rounded-full text-[12px] font-semibold font-['Manrope'] text-slate-700 bg-slate-100 border border-slate-200 hover:bg-blue-50 hover:border-blue-200 hover:text-blue-700 transition-colors duration-200 cursor-default"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* 3D Interactive Constellation Graphic */}
-      <div className="hero-right flex items-center justify-center relative">
+      {/* 3D Interactive Constellation Graphic (Reduced size & centered) */}
+      <div className="hero-right flex items-center justify-center relative scale-[0.80] sm:scale-[0.84] md:scale-[0.86] lg:scale-[0.82] xl:scale-[0.85] origin-center">
         <Constellation
           ref={constellationRef}
           innerRef={constellationInnerRef}

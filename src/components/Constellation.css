@@ -155,6 +155,16 @@
   border: 1px solid rgba(56, 189, 248, 0.2);
 }
 
+.tile-center-logo {
+  background: linear-gradient(165deg, #132238 0%, #0a1322 55%, #020617 100%);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.7),
+    inset 0 0 35px rgba(2, 132, 199, 0.3),
+    0 16px 36px rgba(2, 132, 199, 0.38),
+    0 28px 60px rgba(2, 6, 23, 0.4);
+  border: 1.5px solid rgba(56, 189, 248, 0.45);
+}
+
 .sparkle {
   animation: spin 8s linear infinite, sparkleFloat 4s ease-in-out infinite;
 }

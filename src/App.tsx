@@ -7,11 +7,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Cursor from './components/Cursor';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import WorkspaceFeatures from './components/WorkspaceFeatures';
+// import WorkspaceFeatures from './components/WorkspaceFeatures';
 import StatsBar from './components/StatsBar';
 import Features from './components/Features';
 import ProcessTimeline from './components/ProcessTimeline';
+import ServiceBandsSticky from './components/ServiceBandsSticky';
 import QuoteSection from './components/QuoteSection';
+import AwardsCurvedSection from './components/AwardsCurvedSection';
 import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
 
@@ -373,13 +375,17 @@ export default function App() {
         onLeave={handleCursorLeave}
       />
 
-      <WorkspaceFeatures onHover={handleCursorHover} onLeave={handleCursorLeave} />
+      {/* <WorkspaceFeatures /> */}
 
       <StatsBar />
 
       <Features onHover={handleCursorHover} onLeave={handleCursorLeave} />
 
+      <ServiceBandsSticky onHover={handleCursorHover} onLeave={handleCursorLeave} />
+
       <ProcessTimeline onHover={handleCursorHover} onLeave={handleCursorLeave} />
+
+      <AwardsCurvedSection onHover={handleCursorHover} onLeave={handleCursorLeave} />
 
       <QuoteSection />
 
