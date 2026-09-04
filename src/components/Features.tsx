@@ -31,7 +31,7 @@ export default function Features({ onHover, onLeave }: FeaturesProps) {
       <div className="feature-cards grid grid-cols-1 md:grid-cols-3 gap-7 max-w-7xl mx-auto">
         {/* Gap 1 */}
         <div
-          className="feature-card fc-mint p-9 rounded-[36px] min-h-[320px] flex flex-col bg-gradient-to-br from-white via-sky-50 to-sky-100/70 border border-sky-200 shadow-[0_15px_35px_rgba(14,165,233,0.12)] hover:-translate-y-3 transition-transform duration-500 cursor-pointer"
+          className="feature-card fc-mint cursor-pointer"
           onMouseEnter={onHover}
           onMouseLeave={onLeave}
         >
@@ -48,7 +48,7 @@ export default function Features({ onHover, onLeave }: FeaturesProps) {
 
         {/* Gap 2 */}
         <div
-          className="feature-card fc-yellow p-9 rounded-[36px] min-h-[320px] flex flex-col bg-gradient-to-br from-white via-blue-50 to-blue-100/70 border border-blue-200 shadow-[0_15px_35px_rgba(37,99,235,0.12)] hover:-translate-y-3 transition-transform duration-500 cursor-pointer"
+          className="feature-card fc-yellow cursor-pointer"
           onMouseEnter={onHover}
           onMouseLeave={onLeave}
         >
@@ -65,7 +65,7 @@ export default function Features({ onHover, onLeave }: FeaturesProps) {
 
         {/* Gap 3 */}
         <div
-          className="feature-card fc-purple p-9 rounded-[36px] min-h-[320px] flex flex-col bg-gradient-to-br from-white via-indigo-50 to-indigo-100/70 border border-indigo-200 shadow-[0_15px_35px_rgba(99,102,241,0.12)] hover:-translate-y-3 transition-transform duration-500 cursor-pointer"
+          className="feature-card fc-purple cursor-pointer"
           onMouseEnter={onHover}
           onMouseLeave={onLeave}
         >

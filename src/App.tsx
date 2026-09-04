@@ -12,8 +12,9 @@ import StatsBar from './components/StatsBar';
 import Features from './components/Features';
 import ProcessTimeline from './components/ProcessTimeline';
 import ServiceBandsSticky from './components/ServiceBandsSticky';
-import QuoteSection from './components/QuoteSection';
 import AwardsCurvedSection from './components/AwardsCurvedSection';
+import TeamShowcase from './components/TeamShowcase';
+import QuoteSection from './components/QuoteSection';
 import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
 
@@ -55,19 +56,18 @@ export default function App() {
       });
 
       // Initial State settings
-      gsap.set('.site-header, .hero-desc, .cta-btn, .secondary-btn, .workspace', { opacity: 0 });
+      gsap.set('.hero-desc, .cta-btn, .secondary-btn, .workspace', { opacity: 0 });
       gsap.set('.title-inner', { y: '110%' });
       gsap.set('.tile', { opacity: 0, scale: 0 });
 
       // Page entrance timeline
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      tl.to('.site-header', { opacity: 1, duration: 0.8 }, 0)
-        .to(
-          '.title-inner',
-          { y: 0, duration: 1.1, stagger: 0.08, ease: 'power4.out' },
-          0.2
-        )
+      tl.to(
+        '.title-inner',
+        { y: 0, duration: 1.1, stagger: 0.08, ease: 'power4.out' },
+        0.2
+      )
         .to('.hero-desc', { opacity: 1, duration: 0.8 }, 0.9)
         .from('.hero-desc', { y: 20, duration: 0.8 }, 0.9)
         .to('.cta-btn, .secondary-btn', { opacity: 1, duration: 0.7, stagger: 0.1 }, 1.0)
@@ -227,30 +227,6 @@ export default function App() {
         }
       });
 
-      // 6.1 Process Timeline Scroll Progress & Row Animations
-      gsap.to('#timelineProgressFill', {
-        height: '100%',
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.timeline-content',
-          start: 'top 70%',
-          end: 'bottom 60%',
-          scrub: 1
-        }
-      });
-
-      gsap.from('.timeline_row', {
-        y: 60,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.25,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.timeline-content',
-          start: 'top 80%',
-          toggleActions: 'play none none reverse'
-        }
-      });
 
       // 7. Quote Mark Elastic Pop
       gsap.from('.quote-mark', {
@@ -386,6 +362,8 @@ export default function App() {
       <ProcessTimeline onHover={handleCursorHover} onLeave={handleCursorLeave} />
 
       <AwardsCurvedSection onHover={handleCursorHover} onLeave={handleCursorLeave} />
+
+      <TeamShowcase onHover={handleCursorHover} onLeave={handleCursorLeave} />
 
       <QuoteSection />
 

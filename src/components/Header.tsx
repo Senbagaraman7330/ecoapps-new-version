@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { ChevronDown, ArrowRight, Menu, X } from 'lucide-react';
-import logoImg from '../assets/EcoApps-Logo.webp';
+import logoImg from '../assets/logo-ecoapps.png';
 
 interface HeaderProps {
   onHover: () => void;
@@ -28,6 +28,9 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
   const [activeDropdown, setActiveDropdown] = useState<'marketing' | 'software' | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<'marketing' | 'software' | null>(null);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const lastScrollY = useRef(0);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleMouseEnter = (menu: 'marketing' | 'software') => {
@@ -44,14 +47,120 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
   };
 
   useEffect(() => {
+    let ticking = false;
+    // Accumulates scroll movement in the current direction so a run of tiny
+    // (sub-pixel/momentum) scroll events still adds up to a real reveal/hide
+    // decision instead of one being cancelled out by scroll jitter.
+    let accumulated = 0;
+    let lastDirection: 'up' | 'down' | null = null;
+
+    const getMaxScroll = () =>
+      Math.max(
+        0,
+        document.documentElement.scrollHeight - window.innerHeight
+      );
+
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+
+      window.requestAnimationFrame(() => {
+        const rawScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+        // Clamp out iOS/Android rubber-band overscroll (negative values, or
+        // values beyond the real scrollable height) so the bounce at the
+        // top/bottom of the page never triggers a spurious hide/show.
+        const maxScroll = getMaxScroll();
+        const currentScrollY = Math.min(Math.max(rawScrollY, 0), maxScroll);
+
+        setIsScrolled(currentScrollY > 20);
+
+        // Always visible near the very top of the page.
+        if (currentScrollY <= 60) {
+          setIsVisible(true);
+          accumulated = 0;
+          lastDirection = null;
+        } else {
+          const diff = currentScrollY - lastScrollY.current;
+          const direction: 'up' | 'down' | null = diff > 0 ? 'down' : diff < 0 ? 'up' : null;
+
+          if (direction && direction === lastDirection) {
+            accumulated += Math.abs(diff);
+          } else {
+            accumulated = Math.abs(diff);
+            lastDirection = direction;
+          }
+
+          // Require a meaningful, sustained movement (~10px) in one
+          // direction before toggling, so small wobbles don't flicker the bar.
+          if (direction === 'down' && accumulated > 10) {
+            setIsVisible(false);
+            setActiveDropdown(null);
+          } else if (direction === 'up' && accumulated > 10) {
+            setIsVisible(true);
+          }
+        }
+
+        lastScrollY.current = currentScrollY;
+        ticking = false;
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+    handleScroll();
+
     return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, []);
 
+  // Close the mobile drawer automatically if the viewport grows back into
+  // the desktop breakpoint (e.g. rotating a tablet, or resizing a window).
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMobileMenuOpen(false);
+        setMobileExpanded(null);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Keep the bar pinned open whenever the mobile drawer or a desktop
+  // dropdown is active, so it can never disappear out from under an open menu.
+  const headerVisible = isVisible || mobileMenuOpen || activeDropdown !== null;
+
+  // Lock background scroll while the mobile drawer is open, so the sheet
+  // reads as a modal rather than fighting page scroll underneath it.
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      const previousOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = previousOverflow;
+      };
+    }
+  }, [mobileMenuOpen]);
+
   return (
-    <header className="site-header sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/70 transition-all duration-300 w-full">
-      <div className="w-full max-w-[1520px] mx-auto flex items-center justify-between px-6 sm:px-10 md:px-12 lg:px-16 py-4 md:py-5">
+    <header
+      className={`site-header fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md transition-transform duration-[400ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] w-full ${
+        headerVisible ? 'translate-y-0 shadow-sm' : '-translate-y-full pointer-events-none'
+      } ${
+        isScrolled
+          ? 'shadow-[0_4px_25px_rgba(0,0,0,0.08)] border-b border-slate-200/90'
+          : 'border-b border-slate-200/70'
+      }`}
+    >
+      <div
+        style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
+        className={`w-full max-w-[1520px] mx-auto flex items-center justify-between px-6 sm:px-10 md:px-12 lg:px-16 transition-[padding] duration-300 ${
+          isScrolled ? 'py-2 md:py-2.5' : 'py-3.5 md:py-4'
+        }`}
+      >
         {/* Brand Logo */}
         <div className="flex items-center shrink-0 pr-6 xl:pr-10">
           <a
@@ -63,7 +172,11 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
             <img
               src={logoImg}
               alt="EcoApps Solutions - Tech & Digital Marketing"
-              className="h-10 md:h-12 w-auto object-contain drop-shadow-xs"
+              className={`w-auto object-contain drop-shadow-xs transition-all duration-300 ${
+                isScrolled
+                  ? 'h-9 sm:h-10 md:h-11 lg:h-12'
+                  : 'h-12 sm:h-14 md:h-16 lg:h-[68px]'
+              }`}
             />
           </a>
         </div>
@@ -210,7 +323,9 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
         <div className="hidden lg:flex items-center shrink-0 pl-6 xl:pl-10">
           <a
             href="#contact"
-            className="inline-flex items-center gap-2.5 px-6 py-2.5 font-['Manrope'] text-[14px] font-bold text-[#0b1528] bg-white border-[1.5px] border-[#0b1528] rounded-xl shadow-[0_4px_0_#0b1528] hover:translate-y-0.5 hover:shadow-[0_2px_0_#0b1528] hover:bg-slate-50 active:translate-y-1 active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap"
+            className={`inline-flex items-center gap-2 font-['Manrope'] font-bold text-[#0b1528] bg-white border-[1.5px] border-[#0b1528] rounded-xl shadow-[0_4px_0_#0b1528] hover:translate-y-0.5 hover:shadow-[0_2px_0_#0b1528] hover:bg-slate-50 active:translate-y-1 active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap ${
+              isScrolled ? 'px-4 py-2 text-[13px]' : 'px-6 py-2.5 text-[14px]'
+            }`}
             onMouseEnter={onHover}
             onMouseLeave={onLeave}
           >
@@ -232,7 +347,7 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-200 px-6 py-6 font-['Manrope'] shadow-xl animate-in slide-in-from-top-2 duration-200">
+        <div className="lg:hidden bg-white border-b border-slate-200 px-6 py-6 font-['Manrope'] shadow-xl animate-in slide-in-from-top-2 fade-in duration-250 max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain">
           <div className="flex flex-col gap-4">
             <a
               href="#"

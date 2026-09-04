@@ -2,15 +2,11 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Service Videos
-import video01 from '../assets/services video/Digital_marketing_showcase_video_1080p_202609011048.mp4';
-import video02 from '../assets/services video/Performance_advertising_showcase…_1080p_202609011050.mp4';
-import video03 from '../assets/services video/SEO_and_AI_SEO_video_202609011053.mp4';
-import video04 from '../assets/services video/Social_media_growth_showcase_video_202609011102.mp4';
-import video05 from '../assets/services video/Responsive_website_technology_sh…_1080p_202609011048.mp4';
-import video06 from '../assets/services video/Ecommerce_website_growth_showcas…_1080p_202609011106.mp4';
-import video07 from '../assets/services video/Marketing_automation_showcase_video_1080p_202609011108.mp4';
-import video08 from '../assets/services video/Custom_technology_solutions_vide…_1080p_202609011114.mp4';
+// Service Videos from service-Video folder
+import devVideo from '../assets/service-Video/Development.mp4';
+import marketingAutomationVideo from '../assets/service-Video/Marketing Automation.mp4';
+import performanceMarketingVideo from '../assets/service-Video/Performance Marketing.mp4';
+import seoVideo from '../assets/service-Video/seo and ai seo.mp4';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,67 +22,35 @@ export interface ServiceItem {
 export const servicesList: ServiceItem[] = [
   {
     num: '01',
-    title: 'Digital Marketing',
-    subtitle: 'Explore Digital Marketing',
-    bg: 'bg-[#6099c4]',
+    title: 'Development',
+    subtitle: 'Explore Development & Engineering',
+    bg: 'bg-[#0b1528]',
     text: 'text-white',
-    video: video01,
+    video: devVideo,
   },
   {
     num: '02',
-    title: 'Performance Advertising',
-    subtitle: 'Explore Performance Ads',
-    bg: 'bg-[#111111]',
+    title: 'Marketing Automation',
+    subtitle: 'Explore Marketing Automation',
+    bg: 'bg-[#147b74]',
     text: 'text-white',
-    video: video02,
+    video: marketingAutomationVideo,
   },
   {
     num: '03',
-    title: 'SEO & AI SEO',
-    subtitle: 'Explore AI Search & SEO',
-    bg: 'bg-[#eb5a28]',
+    title: 'Performance Marketing',
+    subtitle: 'Explore Performance Marketing',
+    bg: 'bg-[#111111]',
     text: 'text-white',
-    video: video03,
+    video: performanceMarketingVideo,
   },
   {
     num: '04',
-    title: 'Social Media Growth',
-    subtitle: 'Explore Social Media',
-    bg: 'bg-[#5e2ae6]',
-    text: 'text-white',
-    video: video04,
-  },
-  {
-    num: '05',
-    title: 'Website Development',
-    subtitle: 'Explore Web Development',
-    bg: 'bg-[#0f1422]',
-    text: 'text-white',
-    video: video05,
-  },
-  {
-    num: '06',
-    title: 'Ecommerce Growth',
-    subtitle: 'Explore Ecommerce',
+    title: 'SEO and AI SEO',
+    subtitle: 'Explore SEO & AI Search',
     bg: 'bg-[#eb5a28]',
     text: 'text-white',
-    video: video06,
-  },
-  {
-    num: '07',
-    title: 'Marketing Automation',
-    subtitle: 'Explore Automation',
-    bg: 'bg-[#147b74]',
-    text: 'text-white',
-    video: video07,
-  },
-  {
-    num: '08',
-    title: 'Custom Technology',
-    subtitle: 'Explore Custom Tech',
-    bg: 'bg-[#0c1a25]',
-    text: 'text-white',
-    video: video08,
+    video: seoVideo,
   },
 ];
 
@@ -180,7 +144,7 @@ export default function ServiceBandsSticky({ onHover, onLeave }: ServiceBandsSti
             From visibility and traffic to leads, sales and automation, our services are designed to work together rather than operate as disconnected activities.
           </p>
           <p className="font-['Manrope'] text-[15px] md:text-[16px] leading-[1.7] text-slate-500 max-w-2xl mx-auto mt-4">
-            Our capabilities cover digital marketing, performance advertising, SEO, AI SEO, social media, website development, ecommerce growth, automation and custom technology.
+            Our capabilities cover development, marketing automation, performance marketing, and SEO &amp; AI SEO.
           </p>
         </div>
       </section>

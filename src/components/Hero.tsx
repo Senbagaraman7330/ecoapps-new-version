@@ -14,7 +14,7 @@ export default function Hero({
   onLeave,
 }: HeroProps) {
   return (
-    <main className="hero grid grid-cols-1 lg:grid-cols-[1.12fr_0.88fr] gap-6 md:gap-10 px-6 md:px-14 py-12 md:py-16 items-center relative z-10 min-h-[720px]">
+    <main className="hero grid grid-cols-1 lg:grid-cols-[1.12fr_0.88fr] gap-6 md:gap-10 px-6 md:px-14 pt-28 md:pt-36 pb-12 md:pb-16 items-center relative z-10 min-h-[720px]">
       <div className="hero-left pt-2 pl-0">
         <div className="hero-badge inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-100 border border-sky-200 text-sky-700 text-xs font-bold tracking-wider mb-6 shadow-sm">
           <span className="hero-badge-pulse w-2 h-2 rounded-full bg-sky-600"></span>
