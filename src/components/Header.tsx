@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronDown, ArrowRight, Menu, X } from 'lucide-react';
 import logoImg from '../assets/logo-ecoapps.png';
 
@@ -8,28 +9,27 @@ interface HeaderProps {
 }
 
 const marketingServices = [
-  { name: 'SEO service', href: '#seo-service' },
-  { name: 'AI SEO Service', href: '#ai-seo-service' },
-  { name: 'Paid ads and PPC', href: '#paid-ads-ppc' },
-  { name: 'Social media marketing', href: '#social-media-marketing' },
-  { name: 'Ecommerce marketing', href: '#ecommerce-marketing' },
-  { name: 'B2B marketing', href: '#b2b-marketing' },
+  { name: 'SEO & AI SEO Services', href: '/seo-service' },
+  { name: 'Paid ads and PPC', href: '/paid-ads-ppc' },
+  { name: 'Social media marketing', href: '/social-media-marketing' },
+  { name: 'Ecommerce marketing', href: '/ecommerce-marketing' },
+  { name: 'B2B marketing', href: '/b2b-marketing' },
 ];
 
 const softwareServices = [
-  { name: 'AI automation and AI agents', href: '#ai-automation-agents' },
-  { name: 'Custom developments', href: '#custom-developments' },
-  { name: 'CRM automation', href: '#crm-automation' },
-  { name: 'Website development', href: '#website-development' },
-  { name: 'Mobile app development', href: '#mobile-app-development' },
+  { name: 'AI automation and AI agents', href: '/ai-automation' },
+  { name: 'Custom developments', href: '/custom-software-development' },
+  { name: 'CRM automation', href: '/crm-automation' },
+  { name: 'Website development', href: '/website-development' },
+  { name: 'Mobile app development', href: '/mobile-app-development' },
 ];
 
 export default function Header({ onHover, onLeave }: HeaderProps) {
   const [activeDropdown, setActiveDropdown] = useState<'marketing' | 'software' | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<'marketing' | 'software' | null>(null);
-  const [isVisible, setIsVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
   const lastScrollY = useRef(0);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -47,71 +47,25 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
   };
 
   useEffect(() => {
-    let ticking = false;
-    // Accumulates scroll movement in the current direction so a run of tiny
-    // (sub-pixel/momentum) scroll events still adds up to a real reveal/hide
-    // decision instead of one being cancelled out by scroll jitter.
-    let accumulated = 0;
-    let lastDirection: 'up' | 'down' | null = null;
-
-    const getMaxScroll = () =>
-      Math.max(
-        0,
-        document.documentElement.scrollHeight - window.innerHeight
-      );
-
     const handleScroll = () => {
-      if (ticking) return;
-      ticking = true;
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+      setIsScrolled(scrollY > 20);
 
-      window.requestAnimationFrame(() => {
-        const rawScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
-        // Clamp out iOS/Android rubber-band overscroll (negative values, or
-        // values beyond the real scrollable height) so the bounce at the
-        // top/bottom of the page never triggers a spurious hide/show.
-        const maxScroll = getMaxScroll();
-        const currentScrollY = Math.min(Math.max(rawScrollY, 0), maxScroll);
-
-        setIsScrolled(currentScrollY > 20);
-
-        // Always visible near the very top of the page.
-        if (currentScrollY <= 60) {
-          setIsVisible(true);
-          accumulated = 0;
-          lastDirection = null;
-        } else {
-          const diff = currentScrollY - lastScrollY.current;
-          const direction: 'up' | 'down' | null = diff > 0 ? 'down' : diff < 0 ? 'up' : null;
-
-          if (direction && direction === lastDirection) {
-            accumulated += Math.abs(diff);
-          } else {
-            accumulated = Math.abs(diff);
-            lastDirection = direction;
-          }
-
-          // Require a meaningful, sustained movement (~10px) in one
-          // direction before toggling, so small wobbles don't flicker the bar.
-          if (direction === 'down' && accumulated > 10) {
-            setIsVisible(false);
-            setActiveDropdown(null);
-          } else if (direction === 'up' && accumulated > 10) {
-            setIsVisible(true);
-          }
-        }
-
-        lastScrollY.current = currentScrollY;
-        ticking = false;
-      });
+      // Hide navbar when scrolling down, show when scrolling up
+      if (scrollY > lastScrollY.current && scrollY > 80) {
+        setIsHidden(true);
+      } else if (scrollY < lastScrollY.current) {
+        setIsHidden(false);
+      }
+      
+      lastScrollY.current = scrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
     handleScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, []);
@@ -129,10 +83,6 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Keep the bar pinned open whenever the mobile drawer or a desktop
-  // dropdown is active, so it can never disappear out from under an open menu.
-  const headerVisible = isVisible || mobileMenuOpen || activeDropdown !== null;
-
   // Lock background scroll while the mobile drawer is open, so the sheet
   // reads as a modal rather than fighting page scroll underneath it.
   useEffect(() => {
@@ -147,25 +97,23 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
 
   return (
     <header
-      className={`site-header fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md transition-transform duration-[400ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] w-full ${
-        headerVisible ? 'translate-y-0 shadow-sm' : '-translate-y-full pointer-events-none'
+      className={`site-header fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full ${
+        isHidden && !mobileMenuOpen ? '-translate-y-full' : 'translate-y-0'
       } ${
         isScrolled
-          ? 'shadow-[0_4px_25px_rgba(0,0,0,0.08)] border-b border-slate-200/90'
-          : 'border-b border-slate-200/70'
+          ? 'bg-white/95 backdrop-blur-xl shadow-[0_8px_30px_-6px_rgba(11,21,40,0.08)] border-b border-slate-200/80 py-3 md:py-3.5'
+          : 'bg-white/90 backdrop-blur-lg border-b border-slate-200/60 shadow-[0_2px_15px_-3px_rgba(11,21,40,0.03)] py-4 md:py-5'
       }`}
     >
       <div
         style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
-        className={`w-full max-w-[1520px] mx-auto flex items-center justify-between px-6 sm:px-10 md:px-12 lg:px-16 transition-[padding] duration-300 ${
-          isScrolled ? 'py-2 md:py-2.5' : 'py-3.5 md:py-4'
-        }`}
+        className="w-full max-w-[1520px] mx-auto flex items-center justify-between px-6 sm:px-10 md:px-12 lg:px-16"
       >
         {/* Brand Logo */}
         <div className="flex items-center shrink-0 pr-6 xl:pr-10">
-          <a
-            href="#"
-            className="flex items-center gap-3 select-none cursor-pointer transition-transform duration-300 hover:scale-[1.02] z-20"
+          <Link
+            to="/"
+            className="flex items-center gap-3 select-none cursor-pointer transition-transform duration-200 hover:scale-[1.02] z-20"
             onMouseEnter={onHover}
             onMouseLeave={onLeave}
           >
@@ -174,25 +122,25 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
               alt="EcoApps Solutions - Tech & Digital Marketing"
               className={`w-auto object-contain drop-shadow-xs transition-all duration-300 ${
                 isScrolled
-                  ? 'h-9 sm:h-10 md:h-11 lg:h-12'
-                  : 'h-12 sm:h-14 md:h-16 lg:h-[68px]'
+                  ? 'h-9 sm:h-9 md:h-[36px]'
+                  : 'h-10 sm:h-10 md:h-[42px]'
               }`}
             />
-          </a>
+          </Link>
         </div>
 
         {/* Desktop Navigation Menus */}
-        <nav className="hidden lg:flex items-center justify-center gap-5 xl:gap-8 font-['Manrope'] text-[15px] font-bold text-slate-800">
+        <nav className="hidden lg:flex items-center justify-center gap-6 xl:gap-9 font-['Manrope'] text-[15px] xl:text-[15.5px] font-semibold text-slate-700">
           {/* 1. Home */}
-          <a
-            href="#"
-            className="relative px-3 py-2 transition-colors duration-200 hover:text-[#0057ff] group cursor-pointer"
+          <Link
+            to="/"
+            className="relative px-3 py-1.5 transition-colors duration-200 hover:text-[#0057ff] group cursor-pointer"
             onMouseEnter={onHover}
             onMouseLeave={onLeave}
           >
             <span>Home</span>
-            <span className="absolute bottom-0 left-3 right-3 h-[2.5px] bg-[#0057ff] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center" />
-          </a>
+            <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-[#0057ff] to-[#0ea5e9] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center" />
+          </Link>
 
           {/* 2. Marketing services Dropdown */}
           <div
@@ -203,18 +151,18 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
             <button
               type="button"
               onClick={() => setActiveDropdown(activeDropdown === 'marketing' ? null : 'marketing')}
-              className={`relative flex items-center gap-1.5 px-3 py-2 transition-colors duration-200 cursor-pointer ${
-                activeDropdown === 'marketing' ? 'text-[#0057ff]' : 'text-slate-800 hover:text-[#0057ff]'
+              className={`relative flex items-center gap-1.5 px-3 py-1.5 transition-colors duration-200 cursor-pointer ${
+                activeDropdown === 'marketing' ? 'text-[#0057ff]' : 'text-slate-700 hover:text-[#0057ff]'
               }`}
             >
               <span>Marketing services</span>
               <ChevronDown
-                className={`w-4 h-4 transition-transform duration-200 stroke-[2.5] ${
-                  activeDropdown === 'marketing' ? 'rotate-180 text-[#0057ff]' : 'text-slate-600'
+                className={`w-3.5 h-3.5 transition-transform duration-200 stroke-[2.5] ${
+                  activeDropdown === 'marketing' ? 'rotate-180 text-[#0057ff]' : 'text-slate-500'
                 }`}
               />
               <span
-                className={`absolute bottom-0 left-3 right-3 h-[2.5px] bg-[#0057ff] rounded-full transition-all duration-200 ${
+                className={`absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-[#0057ff] to-[#0ea5e9] rounded-full transition-all duration-200 ${
                   activeDropdown === 'marketing' ? 'scale-x-100' : 'scale-x-0'
                 }`}
               />
@@ -222,25 +170,46 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
 
             {/* Dropdown Menu Panel */}
             <div
-              className={`absolute top-full left-0 pt-3.5 transition-all duration-200 before:content-[''] before:absolute before:-top-4 before:left-0 before:w-full before:h-4 ${
+              className={`absolute top-full left-0 pt-2.5 transition-all duration-200 before:content-[''] before:absolute before:-top-3 before:left-0 before:w-full before:h-3 ${
                 activeDropdown === 'marketing'
                   ? 'opacity-100 translate-y-0 visible pointer-events-auto'
                   : 'opacity-0 translate-y-2 invisible pointer-events-none'
               }`}
             >
-              <div className="bg-white rounded-2xl p-2.5 shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-slate-100 min-w-[280px] flex flex-col gap-0.5">
-                {marketingServices.map((service, index) => (
-                  <a
-                    key={index}
-                    href={service.href}
-                    className="px-4 py-3 rounded-xl font-bold text-[14px] text-slate-800 hover:text-[#0057ff] hover:bg-blue-50/70 transition-colors flex items-center justify-between group cursor-pointer"
-                    onMouseEnter={onHover}
-                    onMouseLeave={onLeave}
-                  >
-                    <span>{service.name}</span>
-                    <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 text-[#0057ff]" />
-                  </a>
-                ))}
+              <div className="bg-white/95 backdrop-blur-xl rounded-2xl p-2 shadow-[0_16px_40px_-6px_rgba(11,21,40,0.12)] border border-slate-100 min-w-[275px] flex flex-col gap-0.5">
+                {marketingServices.map((service, index) => {
+                  const isRoute = service.href.startsWith('/');
+                  const itemContent = (
+                    <>
+                      <span>{service.name}</span>
+                      <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 text-[#0057ff]" />
+                    </>
+                  );
+                  const itemClass = "px-4 py-3 rounded-xl font-bold text-[14px] text-slate-800 hover:text-[#0057ff] hover:bg-blue-50/70 transition-colors flex items-center justify-between group cursor-pointer";
+
+                  return isRoute ? (
+                    <Link
+                      key={index}
+                      to={service.href}
+                      className={itemClass}
+                      onClick={() => setActiveDropdown(null)}
+                      onMouseEnter={onHover}
+                      onMouseLeave={onLeave}
+                    >
+                      {itemContent}
+                    </Link>
+                  ) : (
+                    <a
+                      key={index}
+                      href={service.href}
+                      className={itemClass}
+                      onMouseEnter={onHover}
+                      onMouseLeave={onLeave}
+                    >
+                      {itemContent}
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -254,18 +223,18 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
             <button
               type="button"
               onClick={() => setActiveDropdown(activeDropdown === 'software' ? null : 'software')}
-              className={`relative flex items-center gap-1.5 px-3 py-2 transition-colors duration-200 cursor-pointer ${
-                activeDropdown === 'software' ? 'text-[#0057ff]' : 'text-slate-800 hover:text-[#0057ff]'
+              className={`relative flex items-center gap-1.5 px-3 py-1.5 transition-colors duration-200 cursor-pointer ${
+                activeDropdown === 'software' ? 'text-[#0057ff]' : 'text-slate-700 hover:text-[#0057ff]'
               }`}
             >
               <span>Software services</span>
               <ChevronDown
-                className={`w-4 h-4 transition-transform duration-200 stroke-[2.5] ${
-                  activeDropdown === 'software' ? 'rotate-180 text-[#0057ff]' : 'text-slate-600'
+                className={`w-3.5 h-3.5 transition-transform duration-200 stroke-[2.5] ${
+                  activeDropdown === 'software' ? 'rotate-180 text-[#0057ff]' : 'text-slate-500'
                 }`}
               />
               <span
-                className={`absolute bottom-0 left-3 right-3 h-[2.5px] bg-[#0057ff] rounded-full transition-all duration-200 ${
+                className={`absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-[#0057ff] to-[#0ea5e9] rounded-full transition-all duration-200 ${
                   activeDropdown === 'software' ? 'scale-x-100' : 'scale-x-0'
                 }`}
               />
@@ -273,65 +242,86 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
 
             {/* Dropdown Menu Panel */}
             <div
-              className={`absolute top-full left-0 pt-3.5 transition-all duration-200 before:content-[''] before:absolute before:-top-4 before:left-0 before:w-full before:h-4 ${
+              className={`absolute top-full left-0 pt-2.5 transition-all duration-200 before:content-[''] before:absolute before:-top-3 before:left-0 before:w-full before:h-3 ${
                 activeDropdown === 'software'
                   ? 'opacity-100 translate-y-0 visible pointer-events-auto'
                   : 'opacity-0 translate-y-2 invisible pointer-events-none'
               }`}
             >
-              <div className="bg-white rounded-2xl p-2.5 shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-slate-100 min-w-[300px] flex flex-col gap-0.5">
-                {softwareServices.map((service, index) => (
-                  <a
-                    key={index}
-                    href={service.href}
-                    className="px-4 py-3 rounded-xl font-bold text-[14px] text-slate-800 hover:text-[#0057ff] hover:bg-blue-50/70 transition-colors flex items-center justify-between group cursor-pointer"
-                    onMouseEnter={onHover}
-                    onMouseLeave={onLeave}
-                  >
-                    <span>{service.name}</span>
-                    <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 text-[#0057ff]" />
-                  </a>
-                ))}
+              <div className="bg-white/95 backdrop-blur-xl rounded-2xl p-2 shadow-[0_16px_40px_-6px_rgba(11,21,40,0.12)] border border-slate-100 min-w-[280px] flex flex-col gap-0.5">
+                {softwareServices.map((service, index) => {
+                  const isRoute = service.href.startsWith('/');
+                  const itemContent = (
+                    <>
+                      <span>{service.name}</span>
+                      <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 text-[#0057ff]" />
+                    </>
+                  );
+                  const itemClass = "px-4 py-3 rounded-xl font-bold text-[14px] text-slate-800 hover:text-[#0057ff] hover:bg-blue-50/70 transition-colors flex items-center justify-between group cursor-pointer";
+
+                  return isRoute ? (
+                    <Link
+                      key={index}
+                      to={service.href}
+                      className={itemClass}
+                      onClick={() => setActiveDropdown(null)}
+                      onMouseEnter={onHover}
+                      onMouseLeave={onLeave}
+                    >
+                      {itemContent}
+                    </Link>
+                  ) : (
+                    <a
+                      key={index}
+                      href={service.href}
+                      className={itemClass}
+                      onMouseEnter={onHover}
+                      onMouseLeave={onLeave}
+                    >
+                      {itemContent}
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </div>
 
           {/* 4. About */}
-          <a
-            href="#case-studies"
-            className="relative px-3 py-2 transition-colors duration-200 hover:text-[#0057ff] group cursor-pointer"
+          <Link
+            to="/about"
+            className="relative px-3 py-1.5 transition-colors duration-200 hover:text-[#0057ff] group cursor-pointer"
             onMouseEnter={onHover}
             onMouseLeave={onLeave}
           >
             <span>About</span>
-            <span className="absolute bottom-0 left-3 right-3 h-[2.5px] bg-[#0057ff] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center" />
-          </a>
+            <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-[#0057ff] to-[#0ea5e9] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center" />
+          </Link>
 
           {/* 5. Contact */}
-          <a
-            href="#contact"
-            className="relative px-3 py-2 transition-colors duration-200 hover:text-[#0057ff] group cursor-pointer"
+          <Link
+            to="/contact"
+            className="relative px-3 py-1.5 transition-colors duration-200 hover:text-[#0057ff] group cursor-pointer"
             onMouseEnter={onHover}
             onMouseLeave={onLeave}
           >
             <span>Contact</span>
-            <span className="absolute bottom-0 left-3 right-3 h-[2.5px] bg-[#0057ff] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center" />
-          </a>
+            <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-[#0057ff] to-[#0ea5e9] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center" />
+          </Link>
         </nav>
 
-        {/* Right Action CTA Button */}
-        <div className="hidden lg:flex items-center shrink-0 pl-6 xl:pl-10">
-          <a
-            href="#contact"
-            className={`inline-flex items-center gap-2 font-['Manrope'] font-bold text-[#0b1528] bg-white border-[1.5px] border-[#0b1528] rounded-xl shadow-[0_4px_0_#0b1528] hover:translate-y-0.5 hover:shadow-[0_2px_0_#0b1528] hover:bg-slate-50 active:translate-y-1 active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap ${
-              isScrolled ? 'px-4 py-2 text-[13px]' : 'px-6 py-2.5 text-[14px]'
+        {/* Right Action CTA Button - Blue Style */}
+        <div className="hidden lg:flex items-center shrink-0 pl-6 xl:pl-8">
+          <Link
+            to="/contact"
+            className={`inline-flex items-center gap-2 font-['Manrope'] font-bold text-white bg-gradient-to-r from-[#0057ff] to-[#0ea5e9] hover:from-[#004cd6] hover:to-[#0284c7] rounded-xl shadow-[0_4px_14px_rgba(0,87,255,0.35)] hover:shadow-[0_6px_20px_rgba(0,87,255,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer whitespace-nowrap ${
+              isScrolled ? 'px-4 py-1.5 text-[12.5px]' : 'px-5 py-2 text-[13.5px]'
             }`}
             onMouseEnter={onHover}
             onMouseLeave={onLeave}
           >
-            Book Strategy Call
-            <ArrowRight className="w-3.5 h-3.5" />
-          </a>
+            <span>Book Strategy Call</span>
+            <ArrowRight className="w-3.5 h-3.5 text-white" />
+          </Link>
         </div>
 
         {/* Mobile Hamburger Button */}
@@ -349,13 +339,13 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-b border-slate-200 px-6 py-6 font-['Manrope'] shadow-xl animate-in slide-in-from-top-2 fade-in duration-250 max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain">
           <div className="flex flex-col gap-4">
-            <a
-              href="#"
+            <Link
+              to="/"
               onClick={() => setMobileMenuOpen(false)}
               className="font-bold text-[16px] text-slate-900 py-1"
             >
               Home
-            </a>
+            </Link>
 
             {/* Mobile Marketing Services Accordion */}
             <div className="border-t border-slate-100 pt-3">
@@ -373,16 +363,28 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
               </button>
               {mobileExpanded === 'marketing' && (
                 <div className="pl-3 pt-2 pb-1 flex flex-col gap-2">
-                  {marketingServices.map((service, index) => (
-                    <a
-                      key={index}
-                      href={service.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-medium text-[14px] text-slate-600 hover:text-[#0057ff] py-1.5"
-                    >
-                      {service.name}
-                    </a>
-                  ))}
+                  {marketingServices.map((service, index) => {
+                    const isRoute = service.href.startsWith('/');
+                    return isRoute ? (
+                      <Link
+                        key={index}
+                        to={service.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="font-medium text-[14px] text-slate-600 hover:text-[#0057ff] py-1.5"
+                      >
+                        {service.name}
+                      </Link>
+                    ) : (
+                      <a
+                        key={index}
+                        href={service.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="font-medium text-[14px] text-slate-600 hover:text-[#0057ff] py-1.5"
+                      >
+                        {service.name}
+                      </a>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -403,45 +405,65 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
               </button>
               {mobileExpanded === 'software' && (
                 <div className="pl-3 pt-2 pb-1 flex flex-col gap-2">
-                  {softwareServices.map((service, index) => (
-                    <a
-                      key={index}
-                      href={service.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-medium text-[14px] text-slate-600 hover:text-[#0057ff] py-1.5"
-                    >
-                      {service.name}
-                    </a>
-                  ))}
+                  {softwareServices.map((service, index) => {
+                    const isRoute = service.href.startsWith('/');
+                    return isRoute ? (
+                      <Link
+                        key={index}
+                        to={service.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="font-medium text-[14px] text-slate-600 hover:text-[#0057ff] py-1.5"
+                      >
+                        {service.name}
+                      </Link>
+                    ) : (
+                      <a
+                        key={index}
+                        href={service.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="font-medium text-[14px] text-slate-600 hover:text-[#0057ff] py-1.5"
+                      >
+                        {service.name}
+                      </a>
+                    );
+                  })}
                 </div>
               )}
             </div>
 
-            <a
-              href="#case-studies"
+            <Link
+              to="/about"
               onClick={() => setMobileMenuOpen(false)}
               className="border-t border-slate-100 pt-3 font-bold text-[16px] text-slate-900 py-1"
             >
               About
-            </a>
+            </Link>
 
-            <a
-              href="#contact"
+            <Link
+              to="/faqs"
+              onClick={() => setMobileMenuOpen(false)}
+              className="border-t border-slate-100 pt-3 font-bold text-[16px] text-slate-900 py-1"
+            >
+              FAQs
+            </Link>
+
+            <Link
+              to="/contact"
               onClick={() => setMobileMenuOpen(false)}
               className="border-t border-slate-100 pt-3 font-bold text-[16px] text-slate-900 py-1"
             >
               Contact
-            </a>
+            </Link>
 
             <div className="pt-4 border-t border-slate-100">
-              <a
-                href="#contact"
+              <Link
+                to="/contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full justify-center inline-flex items-center gap-2.5 px-5 py-3 font-['Manrope'] text-[14px] font-bold text-[#0b1528] bg-white border-[1.5px] border-[#0b1528] rounded-xl shadow-[0_4px_0_#0b1528]"
+                className="w-full justify-center inline-flex items-center gap-2.5 px-5 py-3 font-['Manrope'] text-[14px] font-bold text-white bg-gradient-to-r from-[#0057ff] to-[#0ea5e9] rounded-xl shadow-[0_4px_14px_rgba(0,87,255,0.35)]"
               >
                 Book Strategy Call
-                <ArrowRight className="w-3.5 h-3.5" />
-              </a>
+                <ArrowRight className="w-3.5 h-3.5 text-white" />
+              </Link>
             </div>
           </div>
         </div>

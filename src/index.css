@@ -5,6 +5,27 @@
   --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
+/* Global Lenis Smooth Scrolling Optimizations */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 @layer base {
   :root {
     /* Pure Light Theme Canvas */
@@ -268,14 +289,8 @@
 
 /* Hero Section */
 .hero {
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 40px;
-  padding: 50px 56px 40px;
-  align-items: center;
   position: relative;
   z-index: 5;
-  min-height: 720px;
 }
 
 .hero-left {
@@ -888,11 +903,7 @@
 
 /* Stats Bar */
 .stats-bar {
-  padding: 90px 56px;
-  background: linear-gradient(180deg, #f0f7ff 0%, #f8fafc 100%);
-  border-top: 1px solid #e2e8f0;
-  border-radius: 48px 48px 0 0;
-  margin-top: 40px;
+  background: #ffffff;
   position: relative;
   z-index: 5;
 }
@@ -974,10 +985,12 @@
 .features h2 {
   font-family: "Plus Jakarta Sans", sans-serif;
   font-weight: 800;
-  font-size: clamp(40px, 5vw, 72px);
-  line-height: 1.05;
+  font-size: clamp(30px, 3.8vw, 48px);
+  line-height: 1.15;
   letter-spacing: -0.035em;
-  max-width: 760px;
+  max-width: 840px;
+  margin-inline: auto;
+  text-align: center;
   color: #0b1528;
 }
 
@@ -1008,6 +1021,58 @@
   overflow: hidden;
   background: #ffffff;
   will-change: transform, box-shadow;
+}
+
+/* ── Mobile feature card accent bar (animated) ── */
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  border-radius: 36px 0 0 36px;
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+.feature-card.fc-mint::before  { background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%); }
+.feature-card.fc-yellow::before { background: linear-gradient(180deg, #60a5fa 0%, #2563eb 100%); }
+.feature-card.fc-purple::before { background: linear-gradient(180deg, #818cf8 0%, #4f46e5 100%); }
+
+/* Mobile-only: show accent bar on enter */
+@media (max-width: 767px) {
+  .feature-card::before {
+    width: 4px;
+    opacity: 1;
+    border-radius: 36px 0 0 36px;
+  }
+  .feature-card.fc-anim-in::before {
+    width: 4px;
+  }
+}
+
+/* ── Step dot ── */
+.fc-step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: block;
+}
+.fc-mint   .fc-step-dot { background: #0284c7; box-shadow: 0 0 0 3px rgba(2,132,199,0.18); }
+.fc-yellow .fc-step-dot { background: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.18); }
+.fc-purple .fc-step-dot { background: #4f46e5; box-shadow: 0 0 0 3px rgba(79,70,229,0.18); }
+
+/* ── Vertical connector between mobile cards ── */
+@media (max-width: 767px) {
+  .feature-cards {
+    position: relative;
+  }
+  .feature-card {
+    position: relative;
+    border-left: none;
+  }
 }
 
 .feature-card:hover {
@@ -1239,9 +1304,22 @@
 
 /* Site Footer */
 .site-footer {
-  background: #ffffff;
-  padding: 70px 56px 40px;
-  border-top: 1px solid #e2e8f0;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+
+/* EcoApps Signature Frosted Glass Container */
+.footer-glass {
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.76) 0%, rgba(224, 242, 254, 0.38) 55%, rgba(240, 249, 255, 0.72) 100%);
+  border-top: 1px solid rgba(14, 165, 233, 0.22);
+  box-shadow: 0 -20px 50px -10px rgba(14, 165, 233, 0.08),
+              inset 0 1.5px 2px rgba(255, 255, 255, 0.95);
+  transition: all 0.3s ease;
 }
 
 .footer-top {
@@ -1319,6 +1397,15 @@
   }
   .feature-cards {
     grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .feature-card {
+    min-height: 0;
+    padding: 28px 24px 26px;
+    border-radius: 24px;
+  }
+  .feature-card::before {
+    border-radius: 24px 0 0 24px;
   }
   .features,
   .stats-bar {
@@ -1373,3 +1460,63 @@
   }
 }
 }
+
+/* ──────────────────────────────────────────────────────────
+   SERVICES SECTION — MOBILE ACCORDION
+────────────────────────────────────────────────────────── */
+
+/* Accordion button tap feedback */
+@media (max-width: 767px) {
+  .services-section .divide-y button:active {
+    background-color: rgba(241, 245, 249, 0.7);
+    border-radius: 12px;
+  }
+
+  /* Marquee tighter on mobile */
+  .animate-marquee-reverse,
+  .animate-marquee {
+    animation-duration: 24s;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   INFINITE MARQUEE ANIMATIONS (Left-to-Right & Right-to-Left)
+────────────────────────────────────────────────────────── */
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 35s linear infinite;
+  display: flex;
+  will-change: transform;
+}
+
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee {
+  animation: marquee 35s linear infinite;
+  display: flex;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+

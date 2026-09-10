@@ -1,301 +1,76 @@
-/* Process Timeline - Compact Scroll Layout with Left Vertical Accent & Smooth Curved Arrow Track */
+/* Process Timeline - Light 3-Color Glassy Theme Styling (Loop Mode) */
 
-.workflow-section {
+.process-section {
   position: relative;
   background-color: #ffffff;
-  overflow: hidden;
 }
 
-/* Timeline Layout Grid */
-.timeline-content {
-  position: relative;
-  width: 100%;
-  max-width: 1240px;
-  margin: 0 auto;
+/* Glassy Base Card */
+.process-card-glass {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, box-shadow, border-color, background;
 }
 
-.timeline_list {
-  display: flex;
-  flex-direction: column;
-  gap: 36px;
-  width: 100%;
-  position: relative;
-  z-index: 2;
+/* Color 1: Mint / Cyan Glass (Sky) */
+.process-theme-1 {
+  --theme-color: #0284c7;
+  --theme-border: #bae6fd;
+  --theme-border-active: #38bdf8;
+  --theme-bg-glow: rgba(14, 165, 233, 0.18);
+  --theme-bg-subtle: rgba(224, 242, 254, 0.4);
 }
-
-/* Single Timeline Row: Left Col, Center Col, Right Col */
-.timeline_row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 52px minmax(0, 1fr);
-  gap: 24px;
-  align-items: center;
-  position: relative;
-  padding-bottom: 24px;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.4);
-  width: 100%;
-}
-
-.timeline_row > * {
-  min-width: 0;
-}
-
-.timeline_row:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-@media (max-width: 1024px) {
-  .timeline_row {
-    grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr);
-    gap: 18px;
-  }
-}
-
-@media (max-width: 768px) {
-  .timeline_list {
-    gap: 24px;
-  }
-
-  .timeline_row {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    align-items: stretch;
-    padding-bottom: 20px;
-  }
-
-  .timeline_row.is-reversed {
-    flex-direction: column;
-  }
-
-  .timeline_svg-track,
-  .timeline_circle-wrapper {
-    display: none;
-  }
-
-  .timeline_left-space,
-  .timeline_right-space {
-    align-items: flex-start !important;
-    text-align: left !important;
-  }
-}
-
-/* Left Space (Step tag & Serif Title - Facing Center from Left) */
-.timeline_left-space {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-  gap: 8px;
-  padding-top: 2px;
-}
-
-/* Right Space (Step tag & Serif Title - Facing Center from Right) */
-.timeline_right-space {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 8px;
-  padding-top: 2px;
-}
-
-.step-tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 14px;
-  border-radius: 9999px;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
-  color: #0f172a;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  transition: all 0.3s ease;
-}
-
-.step-title-italic {
-  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  font-style: italic;
-  font-size: clamp(24px, 2.6vw, 36px);
-  font-weight: 600;
-  color: #0b1528;
-  line-height: 1.08;
-  letter-spacing: -0.025em;
-  transition: all 0.3s ease;
-}
-
-.timeline_row.is-active .step-tag {
-  background: #e0f2fe;
+.process-card-glass.process-theme-1 {
+  background: linear-gradient(165deg, #ffffff 0%, #f0f9ff 50%, #e0f2fe 100%);
   border-color: #bae6fd;
-  color: #0284c7;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.95), 0 10px 30px rgba(14, 165, 233, 0.12);
+}
+.process-card-glass.process-theme-1:hover,
+.process-card-glass.process-theme-1.is-active {
+  border-color: #38bdf8;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 1), 0 20px 48px rgba(14, 165, 233, 0.24), 0 0 0 1px rgba(56, 189, 248, 0.35);
+  transform: translateY(-2px) scale(1.01);
 }
 
-.timeline_row.is-active .timeline_left-space .step-title-italic {
-  color: #0284c7;
-  transform: translateX(-3px);
+/* Color 2: Royal Blue Glass */
+.process-theme-2 {
+  --theme-color: #2563eb;
+  --theme-border: #bfdbfe;
+  --theme-border-active: #60a5fa;
+  --theme-bg-glow: rgba(37, 99, 235, 0.18);
+  --theme-bg-subtle: rgba(219, 234, 254, 0.4);
+}
+.process-card-glass.process-theme-2 {
+  background: linear-gradient(165deg, #ffffff 0%, #f0f7ff 50%, #dbeafe 100%);
+  border-color: #bfdbfe;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.95), 0 10px 30px rgba(37, 99, 235, 0.12);
+}
+.process-card-glass.process-theme-2:hover,
+.process-card-glass.process-theme-2.is-active {
+  border-color: #60a5fa;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 1), 0 20px 48px rgba(37, 99, 235, 0.24), 0 0 0 1px rgba(96, 165, 250, 0.35);
+  transform: translateY(-2px) scale(1.01);
 }
 
-.timeline_row.is-active .timeline_right-space .step-title-italic {
-  color: #0284c7;
-  transform: translateX(3px);
+/* Color 3: Purple / Indigo Glass */
+.process-theme-3 {
+  --theme-color: #7c3aed;
+  --theme-border: #ddd6fe;
+  --theme-border-active: #a78bfa;
+  --theme-bg-glow: rgba(124, 58, 237, 0.18);
+  --theme-bg-subtle: rgba(237, 233, 254, 0.4);
+}
+.process-card-glass.process-theme-3 {
+  background: linear-gradient(165deg, #ffffff 0%, #f5f3ff 50%, #ede9fe 100%);
+  border-color: #ddd6fe;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.95), 0 10px 30px rgba(124, 58, 237, 0.12);
+}
+.process-card-glass.process-theme-3:hover,
+.process-card-glass.process-theme-3.is-active {
+  border-color: #a78bfa;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 1), 0 20px 48px rgba(124, 58, 237, 0.24), 0 0 0 1px rgba(167, 139, 250, 0.35);
+  transform: translateY(-2px) scale(1.01);
 }
 
-/* Center Column Node Wrapper */
-.timeline_circle-wrapper {
-  grid-column: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 52px;
-  height: 52px;
-  z-index: 3;
-  margin: 0 auto;
-  justify-self: center;
-  align-self: center;
-}
 
-@media (max-width: 1024px) {
-  .timeline_circle-wrapper {
-    width: 44px;
-    height: 44px;
-  }
-}
-
-/* Outer Translucent Halo */
-.timeline_circle-outer {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(14, 165, 233, 0.2);
-  backdrop-filter: blur(10px);
-  border: 1.5px solid rgba(14, 165, 233, 0.4);
-  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.15s ease;
-  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.25);
-  transform: scale(0);
-  opacity: 0;
-  position: relative;
-  z-index: 4;
-  will-change: transform, opacity;
-}
-
-.timeline_circle-inner {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6), 0 3px 8px rgba(37, 99, 235, 0.35);
-}
-
-/* Active Node: Pops in */
-.timeline_row.is-reached .timeline_circle-outer {
-  transform: scale(1);
-  opacity: 1;
-}
-
-/* Placeholder ring before arrow appears */
-.timeline_circle-placeholder {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 2px solid #cbd5e1;
-  transition: transform 0.2s ease, opacity 0.15s ease;
-  z-index: 2;
-  will-change: transform, opacity;
-}
-
-.timeline_row.is-reached .timeline_circle-placeholder {
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.4);
-}
-
-/* Right Item Card Layout (Text on Left, Media Container on Right) */
-.timeline_item {
-  display: grid;
-  grid-template-columns: 1fr 1.25fr;
-  gap: 24px;
-  align-items: center;
-  border-radius: 24px;
-  padding: 24px 28px;
-  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.timeline_item:hover {
-  transform: translateY(-3px);
-}
-
-@media (min-width: 1025px) {
-  .timeline_row.is-reversed .timeline_item {
-    grid-template-columns: 1.25fr 1fr;
-  }
-  .timeline_row.is-reversed .timeline-card-content {
-    order: 2;
-  }
-  .timeline_row.is-reversed .marge-image-wrap {
-    order: 1;
-  }
-}
-
-@media (max-width: 1024px) {
-  .timeline_item {
-    grid-template-columns: 1fr;
-    padding: 20px;
-    gap: 16px;
-  }
-}
-
-.timeline-card-content {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.text-lead {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(20px, 1.8vw, 26px);
-  font-weight: 700;
-  color: #0b1528;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
-}
-
-.text-body {
-  font-family: 'Manrope', sans-serif;
-  font-size: 14px;
-  line-height: 1.55;
-  color: #475569;
-}
-
-/* Media Showcase Frame */
-.marge-image-wrap {
-  position: relative;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 18px;
-  padding: 12px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02), 0 4px 14px rgba(11, 21, 40, 0.02);
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.timeline_item:hover .marge-image-wrap {
-  background: #f0f9ff;
-  border-color: #bae6fd;
-}

@@ -6,7 +6,7 @@ export default function WorkspaceFeatures() {
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-100 border border-sky-200 text-sky-700 text-xs font-['JetBrains_Mono'] font-bold tracking-wider mb-4 uppercase">
             <span>Introduction</span>
           </div>
-          <h2 className="font-['Plus_Jakarta_Sans'] font-extrabold text-3xl md:text-4xl text-[#0b1528] leading-[1.15] tracking-tight">
+          <h2 className="section-title-reveal font-['Plus_Jakarta_Sans'] font-extrabold text-3xl md:text-4xl text-[#0b1528] leading-[1.15] tracking-tight">
             More than a digital marketing agency.
           </h2>
         </div>

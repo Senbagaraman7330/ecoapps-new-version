@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUpRight, Star } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -98,18 +97,18 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
       {/* ────────────────────────────────────────────────────────── */}
       {/* 1. CASE STUDIES SECTION (Light Canvas)                     */}
       {/* ────────────────────────────────────────────────────────── */}
-      <section className="py-28 md:py-36 px-6 relative z-10" id="case-studies">
-        <div className="max-w-4xl mx-auto text-center mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-2 border border-slate-200 bg-white rounded-full px-4 py-1.5 text-[10px] font-bold text-slate-600 mb-6 tracking-widest uppercase shadow-xs">
+      {/* <section className="py-14 md:py-18 px-6 relative z-10" id="case-studies">
+        <div className="max-w-4xl mx-auto text-center mb-10 md:mb-12">
+          <div className="inline-flex items-center gap-2 border border-slate-200 bg-white rounded-full px-3.5 py-1 text-[10px] font-bold text-slate-600 mb-4 tracking-widest uppercase shadow-2xs">
             <Star className="w-3 h-3 text-sky-600 fill-sky-600" /> Case Studies
           </div>
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#0b1528] leading-[1.08] mb-6">
+          <h2 className="section-title-reveal text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#0b1528] leading-[1.1] mb-4">
             Real Work.{' '}
             <span className="font-serif italic font-normal text-slate-700 block md:inline">
               Real Growth.
             </span>
           </h2>
-          <p className="text-slate-600 font-['Manrope'] text-[16px] md:text-[18px] leading-relaxed max-w-2xl mx-auto">
+          <p className="text-slate-600 font-['Manrope'] text-[15px] md:text-[16.5px] leading-relaxed max-w-2xl mx-auto">
             Show each project through the challenge, strategy and measurable result. The case study content should focus on what changed for the client rather than only displaying a portfolio image.
           </p>
         </div>
@@ -119,12 +118,12 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
             href="#all-case-studies"
             onMouseEnter={onHover}
             onMouseLeave={onLeave}
-            className="inline-flex items-center gap-3 bg-[#0b1528] text-white px-8 py-4 rounded-full font-bold hover:bg-slate-800 transition text-sm shadow-xl cursor-pointer"
+            className="inline-flex items-center gap-2.5 bg-[#0b1528] text-white px-7 py-3.5 rounded-full font-bold hover:bg-slate-800 transition text-sm shadow-lg cursor-pointer"
           >
             View All Success Stories <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>
-      </section>
+      </section> */}
 
       {/* ────────────────────────────────────────────────────────── */}
       {/* 2. TOP DYNAMIC SCROLL CURVE (Morphs from Arch into Flat)   */}
@@ -133,7 +132,7 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
         <svg
           ref={topCurveSvgRef}
           viewBox="0 0 1440 240"
-          className="w-full h-36 md:h-52 lg:h-64 block"
+          className="w-full h-24 md:h-36 lg:h-44 block"
           preserveAspectRatio="none"
         >
           <path
@@ -145,37 +144,29 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
       </div>
 
       {/* ────────────────────────────────────────────────────────── */}
-      {/* 3. RECOGNIZED BY / AWARDS SECTION (Dark Canvas)            */}
-      {/* ────────────────────────────────────────────────────────── */}
-      {/* ────────────────────────────────────────────────────────── */}
       {/* 3. AI SECTION & WHY ECO APPS (Dark Canvas)                 */}
       {/* ────────────────────────────────────────────────────────── */}
-      <section ref={awardsRef} className="bg-black text-white pt-24 pb-36 px-6 relative z-10">
+      <section ref={awardsRef} className="bg-black text-white pt-14 pb-20 px-6 relative z-10">
         <div className="max-w-7xl mx-auto flex flex-col items-center">
 
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight text-center max-w-4xl leading-[1.08]">
-            Your Customers Are Asking AI Before They Ask Google
-          </h2>
-
-          <p className="text-slate-400 text-[16px] md:text-[18px] max-w-3xl text-center mb-24 font-medium leading-relaxed">
-            Search behaviour is changing. Customers are discovering brands through AI-powered answers, conversational search and recommendation experiences alongside traditional search engines. Eco Apps Solutions helps businesses prepare for this shift through AI SEO, structured content, authority building, AI-ready digital experiences and intelligent automation.
-          </p>
-
-          {/* Why Eco Apps Subheading */}
-          <div className="w-full text-left mb-12 border-t border-white/15 pt-16">
-            <div className="text-[11px] font-mono uppercase tracking-[0.2em] text-sky-400 font-bold mb-3">
-              Why Eco Apps
+          {/* Why Eco Apps / Why Choose Us Header */}
+          <div className="w-full text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-500/10 border border-sky-400/20 text-sky-400 text-[11px] font-mono font-bold tracking-widest uppercase mb-4 shadow-2xs">
+              Why Choose Us • Why Eco Apps
             </div>
-            <h3 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">
+            <h2 className="section-title-reveal text-3xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.1]">
               Built for Measurable Business Outcomes
-            </h3>
+            </h2>
+            <p className="text-slate-400 text-[15px] md:text-[17px] max-w-2xl mx-auto mt-4 font-medium leading-relaxed font-['Manrope']">
+              Every system, creative asset, and campaign we engineer is focused on compounding growth, direct accountability, and real business results.
+            </p>
           </div>
 
           {/* 6 Luxury White Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-            {/* ── CARD 01: Strategy Before Execution ── */}
+            {/* ── CARD 01: Strategy First ── */}
             <div
-              className="why-card bg-white text-slate-900 rounded-[2.2rem] p-8 md:p-9 flex flex-col justify-between shadow-2xl relative overflow-hidden cursor-pointer transition-all duration-300 min-h-[380px] border border-slate-100 group"
+              className="why-card bg-white text-slate-900 rounded-[2.2rem] p-7 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden cursor-pointer transition-all duration-300 min-h-[470px] border border-slate-100 group"
               onMouseEnter={onHover}
               onMouseLeave={onLeave}
               style={{ transformStyle: 'preserve-3d' }}
@@ -186,25 +177,52 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
                   Strategy
                 </div>
                 <div className="text-3xl md:text-[34px] text-slate-950 tracking-tight leading-tight">
-                  <span className="font-serif italic font-normal">Before</span>{' '}
-                  <span className="font-bold">Execution</span>
+                  <span className="font-serif italic font-normal">First</span>{' '}
+                  <span className="font-bold">Clarity</span>
                 </div>
 
-                <div className="w-full h-px bg-slate-200/80 my-5" />
+                <div className="w-full h-px bg-slate-200/80 my-4" />
 
-                <p className="text-xs text-slate-400 font-medium mb-1">
-                  Core Foundation Principle
+                <p className="text-xs font-semibold text-sky-600 mb-3 tracking-tight">
+                  Every engagement begins with clarity.
                 </p>
-                <h4 className="text-sm font-bold text-slate-950 mb-2 tracking-tight">
-                  Strategy Before Execution
-                </h4>
-                <p className="text-xs text-slate-600 leading-relaxed max-w-[220px] font-['Manrope'] font-medium">
-                  We begin with your business, market, customers and objectives.
-                </p>
+
+                <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-2">
+                  WE HELP / WE HANDLE:
+                </div>
+
+                <ul className="space-y-1.5 mb-5">
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Your industry landscape</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Competitor positioning</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Audience behaviour patterns</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Revenue targets</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Lead quality benchmarks</span>
+                  </li>
+                </ul>
+
+                <div className="pt-3 border-t border-slate-100 max-w-[240px]">
+                  <p className="text-xs text-slate-600 font-medium leading-relaxed font-['Manrope']">
+                    Growth without direction wastes money. We eliminate guesswork.
+                  </p>
+                </div>
               </div>
 
               {/* Bottom 3D Blue Floating Icon Graphic */}
-              <div className="absolute -bottom-6 -right-6 w-44 h-44 pointer-events-none transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+              <div className="absolute -bottom-6 -right-6 w-40 h-40 pointer-events-none transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2 opacity-90">
                 <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-[0_25px_30px_rgba(0,87,255,0.4)]">
                   <defs>
                     <linearGradient id="blueGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -241,9 +259,9 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
               </div>
             </div>
 
-            {/* ── CARD 02: AI-First Thinking ── */}
+            {/* ── CARD 02: Structured Content Production ── */}
             <div
-              className="why-card bg-white text-slate-900 rounded-[2.2rem] p-8 md:p-9 flex flex-col justify-between shadow-2xl relative overflow-hidden cursor-pointer transition-all duration-300 min-h-[380px] border border-slate-100 group"
+              className="why-card bg-white text-slate-900 rounded-[2.2rem] p-7 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden cursor-pointer transition-all duration-300 min-h-[470px] border border-slate-100 group"
               onMouseEnter={onHover}
               onMouseLeave={onLeave}
               style={{ transformStyle: 'preserve-3d' }}
@@ -251,28 +269,55 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
               {/* Main Typography */}
               <div className="relative z-10">
                 <div className="text-2xl md:text-[28px] font-bold text-slate-950 tracking-tight leading-none mb-1">
-                  AI-First
+                  Structured
                 </div>
                 <div className="text-3xl md:text-[34px] text-slate-950 tracking-tight leading-tight">
-                  <span className="font-serif italic font-normal">Intelligent</span>{' '}
-                  <span className="font-bold">Thinking</span>
+                  <span className="font-serif italic font-normal">Content</span>{' '}
+                  <span className="font-bold">Production</span>
                 </div>
 
-                <div className="w-full h-px bg-slate-200/80 my-5" />
+                <div className="w-full h-px bg-slate-200/80 my-4" />
 
-                <p className="text-xs text-slate-400 font-medium mb-1">
-                  Value Creation Standard
+                <p className="text-xs font-semibold text-sky-600 mb-3 tracking-tight">
+                  We don’t shoot casually.
                 </p>
-                <h4 className="text-sm font-bold text-slate-950 mb-2 tracking-tight">
-                  AI-First Thinking
-                </h4>
-                <p className="text-xs text-slate-600 leading-relaxed max-w-[220px] font-['Manrope'] font-medium">
-                  We apply AI where it creates practical business value.
-                </p>
+
+                <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-2">
+                  WE HELP / WE HANDLE:
+                </div>
+
+                <ul className="space-y-1.5 mb-5">
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Reel concepts aligned with business goals</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Educational authority-building videos</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Trust-building founder content</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Product-focused storytelling</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Conversion-driven creatives</span>
+                  </li>
+                </ul>
+
+                <div className="pt-3 border-t border-slate-100 max-w-[240px]">
+                  <p className="text-xs text-slate-600 font-medium leading-relaxed font-['Manrope']">
+                    We’ve produced thousands of performance-led reels across 100+ brands. Every piece of content has a purpose.
+                  </p>
+                </div>
               </div>
 
               {/* Bottom 3D Iridescent Purple/Cyan Ribbon Graphic */}
-              <div className="absolute -bottom-6 -right-6 w-44 h-44 pointer-events-none transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+              <div className="absolute -bottom-6 -right-6 w-40 h-40 pointer-events-none transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2 opacity-90">
                 <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-[0_20px_35px_rgba(99,102,241,0.45)]">
                   <defs>
                     <linearGradient id="aiRibbon1" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -314,9 +359,9 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
               </div>
             </div>
 
-            {/* ── CARD 03: Performance Focused ── */}
+            {/* ── CARD 03: Editing & Account Management ── */}
             <div
-              className="why-card bg-white text-slate-900 rounded-[2.2rem] p-8 md:p-9 flex flex-col justify-between shadow-2xl relative overflow-hidden cursor-pointer transition-all duration-300 min-h-[380px] border border-slate-100 group"
+              className="why-card bg-white text-slate-900 rounded-[2.2rem] p-7 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden cursor-pointer transition-all duration-300 min-h-[470px] border border-slate-100 group"
               onMouseEnter={onHover}
               onMouseLeave={onLeave}
               style={{ transformStyle: 'preserve-3d' }}
@@ -324,30 +369,55 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
               {/* Main Typography */}
               <div className="relative z-10">
                 <div className="text-2xl md:text-[28px] font-bold text-slate-950 tracking-tight leading-none mb-1">
-                  Performance
+                  Editing &amp;
                 </div>
-                <div className="text-3xl md:text-[34px] text-slate-950 tracking-tight leading-tight mb-0.5">
-                  <span className="font-serif italic font-normal">Measurable</span>
-                </div>
-                <div className="text-2xl md:text-[28px] font-bold text-slate-950 tracking-tight mb-3">
-                  Focused 2026
+                <div className="text-3xl md:text-[34px] text-slate-950 tracking-tight leading-tight">
+                  <span className="font-serif italic font-normal">Account</span>{' '}
+                  <span className="font-bold">Management</span>
                 </div>
 
-                <div className="w-full h-px bg-slate-200/80 my-5" />
+                <div className="w-full h-px bg-slate-200/80 my-4" />
 
-                <p className="text-xs text-slate-400 font-medium mb-1">
-                  KPI & ROI Framework
+                <p className="text-xs font-semibold text-sky-600 mb-3 tracking-tight">
+                  We handle your social presence end-to-end.
                 </p>
-                <h4 className="text-sm font-bold text-slate-950 mb-2 tracking-tight">
-                  Performance Focused
-                </h4>
-                <p className="text-xs text-slate-600 leading-relaxed max-w-[220px] font-['Manrope'] font-medium">
-                  Campaigns are built around measurable outcomes.
-                </p>
+
+                <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-2">
+                  WE HELP / WE HANDLE:
+                </div>
+
+                <ul className="space-y-1.5 mb-5">
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>16 structured reels per month (standard model)</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Caption strategy</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Content calendar</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Posting &amp; monitoring</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Engagement flow management</span>
+                  </li>
+                </ul>
+
+                <div className="pt-3 border-t border-slate-100 max-w-[240px]">
+                  <p className="text-xs text-slate-600 font-medium leading-relaxed font-['Manrope']">
+                    Your social presence becomes consistent and intentional.
+                  </p>
+                </div>
               </div>
 
               {/* Bottom 3D Glowing Hot Pink / Magenta Glass Orb */}
-              <div className="absolute -bottom-6 -right-6 w-44 h-44 pointer-events-none transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+              <div className="absolute -bottom-6 -right-6 w-40 h-40 pointer-events-none transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2 opacity-90">
                 <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-[0_20px_40px_rgba(244,63,94,0.5)]">
                   <defs>
                     <radialGradient id="perfPinkOrb" cx="35%" cy="30%" r="65%">
@@ -381,9 +451,9 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
               </div>
             </div>
 
-            {/* ── CARD 04: Technology + Marketing ── */}
+            {/* ── CARD 04: Performance Advertising ── */}
             <div
-              className="why-card bg-white text-slate-900 rounded-[2.2rem] p-8 md:p-9 flex flex-col justify-between shadow-2xl relative overflow-hidden cursor-pointer transition-all duration-300 min-h-[380px] border border-slate-100 group"
+              className="why-card bg-white text-slate-900 rounded-[2.2rem] p-7 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden cursor-pointer transition-all duration-300 min-h-[470px] border border-slate-100 group"
               onMouseEnter={onHover}
               onMouseLeave={onLeave}
               style={{ transformStyle: 'preserve-3d' }}
@@ -391,28 +461,55 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
               {/* Main Typography */}
               <div className="relative z-10">
                 <div className="text-2xl md:text-[28px] font-bold text-slate-950 tracking-tight leading-none mb-1">
-                  Technology
+                  Performance
                 </div>
                 <div className="text-3xl md:text-[34px] text-slate-950 tracking-tight leading-tight">
-                  <span className="font-serif italic font-normal">+ Modern</span>{' '}
-                  <span className="font-bold">Marketing</span>
+                  <span className="font-serif italic font-normal">Paid</span>{' '}
+                  <span className="font-bold">Advertising</span>
                 </div>
 
-                <div className="w-full h-px bg-slate-200/80 my-5" />
+                <div className="w-full h-px bg-slate-200/80 my-4" />
 
-                <p className="text-xs text-slate-400 font-medium mb-1">
-                  Integrated Engineering
+                <p className="text-xs font-semibold text-sky-600 mb-3 tracking-tight">
+                  We don’t just run ads. We optimise them.
                 </p>
-                <h4 className="text-sm font-bold text-slate-950 mb-2 tracking-tight">
-                  Technology + Marketing
-                </h4>
-                <p className="text-xs text-slate-600 leading-relaxed max-w-[220px] font-['Manrope'] font-medium">
-                  Marketing capability is supported by web, software and technology expertise.
-                </p>
+
+                <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-2">
+                  WE HELP / WE HANDLE:
+                </div>
+
+                <ul className="space-y-1.5 mb-5">
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Lead generation</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Conversion tracking</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Retargeting warm audiences</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Creative testing</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Scaling winning campaigns</span>
+                  </li>
+                </ul>
+
+                <div className="pt-3 border-t border-slate-100 max-w-[240px]">
+                  <p className="text-xs text-slate-600 font-medium leading-relaxed font-['Manrope']">
+                    We review campaigns daily, optimise weekly, and scale when data proves consistency — because ads without monitoring burn money.
+                  </p>
+                </div>
               </div>
 
               {/* Bottom 3D Emerald Floating Icon Graphic */}
-              <div className="absolute -bottom-6 -right-6 w-44 h-44 pointer-events-none transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+              <div className="absolute -bottom-6 -right-6 w-40 h-40 pointer-events-none transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2 opacity-90">
                 <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-[0_25px_30px_rgba(16,185,129,0.4)]">
                   <defs>
                     <linearGradient id="greenGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -449,9 +546,9 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
               </div>
             </div>
 
-            {/* ── CARD 05: Data-Driven Decisions ── */}
+            {/* ── CARD 05: Business Automation ── */}
             <div
-              className="why-card bg-white text-slate-900 rounded-[2.2rem] p-8 md:p-9 flex flex-col justify-between shadow-2xl relative overflow-hidden cursor-pointer transition-all duration-300 min-h-[380px] border border-slate-100 group"
+              className="why-card bg-white text-slate-900 rounded-[2.2rem] p-7 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden cursor-pointer transition-all duration-300 min-h-[470px] border border-slate-100 group"
               onMouseEnter={onHover}
               onMouseLeave={onLeave}
               style={{ transformStyle: 'preserve-3d' }}
@@ -459,28 +556,55 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
               {/* Main Typography */}
               <div className="relative z-10">
                 <div className="text-2xl md:text-[28px] font-bold text-slate-950 tracking-tight leading-none mb-1">
-                  Data-Driven
+                  Business
                 </div>
                 <div className="text-3xl md:text-[34px] text-slate-950 tracking-tight leading-tight">
-                  <span className="font-serif italic font-normal">Continuous</span>{' '}
-                  <span className="font-bold">Decisions</span>
+                  <span className="font-serif italic font-normal">Intelligent</span>{' '}
+                  <span className="font-bold">Automation</span>
                 </div>
 
-                <div className="w-full h-px bg-slate-200/80 my-5" />
+                <div className="w-full h-px bg-slate-200/80 my-4" />
 
-                <p className="text-xs text-slate-400 font-medium mb-1">
-                  Continuous Optimization Loop
+                <p className="text-xs font-semibold text-sky-600 mb-3 tracking-tight">
+                  We automate repetitive work so your business can work smarter.
                 </p>
-                <h4 className="text-sm font-bold text-slate-950 mb-2 tracking-tight">
-                  Data-Driven Decisions
-                </h4>
-                <p className="text-xs text-slate-600 leading-relaxed max-w-[220px] font-['Manrope'] font-medium">
-                  Performance data and predictive analytics guide continuous optimisation.
-                </p>
+
+                <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-2">
+                  WE HELP / WE HANDLE:
+                </div>
+
+                <ul className="space-y-1.5 mb-5">
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Automate repetitive business tasks</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Connect your everyday tools</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Streamline lead follow-ups</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Automate customer communication</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Build workflows around your business process</span>
+                  </li>
+                </ul>
+
+                <div className="pt-3 border-t border-slate-100 max-w-[240px]">
+                  <p className="text-xs text-slate-600 font-medium leading-relaxed font-['Manrope']">
+                    Less manual work. Fewer repetitive tasks. More time for growth.
+                  </p>
+                </div>
               </div>
 
               {/* Bottom 3D Amber Floating Icon Graphic */}
-              <div className="absolute -bottom-6 -right-6 w-44 h-44 pointer-events-none transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+              <div className="absolute -bottom-6 -right-6 w-40 h-40 pointer-events-none transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2 opacity-90">
                 <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-[0_25px_30px_rgba(245,158,11,0.4)]">
                   <defs>
                     <linearGradient id="amberGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -519,9 +643,9 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
               </div>
             </div>
 
-            {/* ── CARD 06: Built for Scale ── */}
+            {/* ── CARD 06: Technology Solutions ── */}
             <div
-              className="why-card bg-white text-slate-900 rounded-[2.2rem] p-8 md:p-9 flex flex-col justify-between shadow-2xl relative overflow-hidden cursor-pointer transition-all duration-300 min-h-[380px] border border-slate-100 group"
+              className="why-card bg-white text-slate-900 rounded-[2.2rem] p-7 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden cursor-pointer transition-all duration-300 min-h-[470px] border border-slate-100 group"
               onMouseEnter={onHover}
               onMouseLeave={onLeave}
               style={{ transformStyle: 'preserve-3d' }}
@@ -529,28 +653,55 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
               {/* Main Typography */}
               <div className="relative z-10">
                 <div className="text-2xl md:text-[28px] font-bold text-slate-950 tracking-tight leading-none mb-1">
-                  Built for
+                  Technology
                 </div>
                 <div className="text-3xl md:text-[34px] text-slate-950 tracking-tight leading-tight">
-                  <span className="font-serif italic font-normal">Infinite</span>{' '}
-                  <span className="font-bold">Scale</span>
+                  <span className="font-serif italic font-normal">Custom</span>{' '}
+                  <span className="font-bold">Solutions</span>
                 </div>
 
-                <div className="w-full h-px bg-slate-200/80 my-5" />
+                <div className="w-full h-px bg-slate-200/80 my-4" />
 
-                <p className="text-xs text-slate-400 font-medium mb-1">
-                  Enterprise Growth Readiness
+                <p className="text-xs font-semibold text-sky-600 mb-3 tracking-tight">
+                  We build technology around your business needs.
                 </p>
-                <h4 className="text-sm font-bold text-slate-950 mb-2 tracking-tight">
-                  Built for Scale
-                </h4>
-                <p className="text-xs text-slate-600 leading-relaxed max-w-[220px] font-['Manrope'] font-medium">
-                  Digital systems are designed to grow with the business.
-                </p>
+
+                <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-2">
+                  WE HELP / WE HANDLE:
+                </div>
+
+                <ul className="space-y-1.5 mb-5">
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Build custom websites and web applications</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Develop business software and digital tools</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Integrate AI into everyday workflows</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Connect systems and business data</span>
+                  </li>
+                  <li className="text-[12.5px] text-slate-700 flex items-start gap-2 font-['Manrope'] font-medium leading-snug">
+                    <span className="text-sky-500 font-bold text-sm leading-none mt-0.5">•</span>
+                    <span>Create solutions that simplify operations</span>
+                  </li>
+                </ul>
+
+                <div className="pt-3 border-t border-slate-100 max-w-[240px]">
+                  <p className="text-xs text-slate-600 font-medium leading-relaxed font-['Manrope']">
+                    Technology should solve real business problems — not add more complexity.
+                  </p>
+                </div>
               </div>
 
               {/* Bottom 3D Indigo/Violet Floating Icon Graphic */}
-              <div className="absolute -bottom-6 -right-6 w-44 h-44 pointer-events-none transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+              <div className="absolute -bottom-6 -right-6 w-40 h-40 pointer-events-none transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2 opacity-90">
                 <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-[0_25px_30px_rgba(99,102,241,0.4)]">
                   <defs>
                     <linearGradient id="indigoGrad6" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -616,7 +767,7 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
             <div className="inline-flex items-center gap-2 border border-slate-200 bg-white rounded-full px-4 py-1.5 text-[10px] font-bold text-slate-600 mb-6 tracking-widest uppercase shadow-xs">
               <Box className="w-3 h-3 text-sky-600" /> Resources
             </div>
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] max-w-4xl mx-auto tracking-tight text-[#0b1528]">
+            <h2 className="section-title-reveal text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] max-w-4xl mx-auto tracking-tight text-[#0b1528]">
               Get deeper insights, tips,{' '}
               <span className="font-serif italic font-normal text-slate-700 block md:inline">
                 and real talk from the blog.
@@ -725,10 +876,10 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
                     Prefer email instead?
                   </div>
                   <a
-                    href="mailto:hello@ecoapps.com"
+                    href="mailto:sales@ecoappssolutions.com"
                     className="text-sm font-bold underline decoration-2 underline-offset-4 hover:text-sky-600 transition text-slate-900"
                   >
-                    hello@ecoapps.com
+                    sales@ecoappssolutions.com
                   </a>
                 </div>
               </div>
