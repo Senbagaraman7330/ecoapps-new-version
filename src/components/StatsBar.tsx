@@ -16,7 +16,7 @@ export default function StatsBar() {
             <span>Measuring What Matters</span>
           </div>
           <h2 className="section-title-reveal font-['Plus_Jakarta_Sans'] font-extrabold text-[clamp(28px,3.4vw,44px)] text-[#0b1528] leading-[1.12] tracking-tight mb-4">
-            Marketing That Delivers Results
+            Not For Everyone. Built For Serious Brands
           </h2>
           <p className="font-['Manrope'] text-[15px] sm:text-[16.5px] leading-[1.68] text-slate-600 max-w-3xl mx-auto">
             We track traffic, leads, enquiries, sales and campaign performance so you can see what is working.

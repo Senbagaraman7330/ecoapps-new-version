@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import faizanImg from '../assets/team-member/Faizan khan Z .jpg';
 import arshadImg from '../assets/team-member/Muhammad Arshad K .jpg';
 import vimalsivaImg from '../assets/team-member/Vimalsiva A .jpg';
@@ -18,7 +17,7 @@ export interface TeamMember {
 const DEFAULT_MEMBERS: TeamMember[] = [
   {
     id: '1',
-    name: 'Faizan khan Z',
+    name: 'Faizankhan Z',
     role: 'Business Development Manager',
     image: faizanImg,
     social: { linkedin: 'https://linkedin.com' },
@@ -26,28 +25,28 @@ const DEFAULT_MEMBERS: TeamMember[] = [
   {
     id: '2',
     name: 'Muhammad Arshad K',
-    role: 'Website Developer',
+    role: 'Web Development Lead',
     image: arshadImg,
     social: { linkedin: 'https://linkedin.com' },
   },
   {
     id: '3',
     name: 'Vimalsiva A',
-    role: 'Performance Marketer',
+    role: 'Performance & Growth Marketer',
     image: vimalsivaImg,
     social: { linkedin: 'https://linkedin.com' },
   },
   {
     id: '4',
     name: 'Fazil',
-    role: 'Video Editor',
+    role: 'Creative Head',
     image: fazilImg,
     social: { linkedin: 'https://linkedin.com' },
   },
   {
     id: '5',
     name: 'Fajrulrahman',
-    role: 'Wordpress Developer',
+    role: 'Senior Web Developer',
     image: fajrulrahmanImg,
     social: { linkedin: 'https://linkedin.com' },
   },
@@ -64,14 +63,8 @@ export default function TeamShowcase({
   onHover,
   onLeave,
 }: TeamShowcaseProps) {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-
-  const col1 = members.filter((_, i) => i % 3 === 0);
-  const col2 = members.filter((_, i) => i % 3 === 1);
-  const col3 = members.filter((_, i) => i % 3 === 2);
-
   return (
-    <section className="relative px-6 md:px-14 py-28 md:py-36 bg-gradient-to-b from-white via-sky-50/40 to-slate-50/60 border-b border-slate-200 overflow-hidden" id="team">
+    <section className="relative px-4 sm:px-6 md:px-14 py-20 sm:py-28 md:py-36 bg-gradient-to-b from-white via-sky-50/40 to-slate-50/60 border-b border-slate-200 overflow-hidden" id="team">
 
       {/* ── Dynamic Ambient Mesh Gradients matching Website Rhythm ── */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[550px] bg-gradient-to-tr from-sky-200/40 via-blue-100/30 to-indigo-100/30 blur-[120px] pointer-events-none rounded-full" />
@@ -88,244 +81,70 @@ export default function TeamShowcase({
       />
 
       {/* ── Section Header ── */}
-      <div className="max-w-4xl mx-auto text-center mb-16 md:mb-20 relative z-10">
-        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-sky-50 to-blue-50 border border-sky-200/80 text-sky-700 text-xs font-['JetBrains_Mono'] font-bold tracking-widest uppercase mb-5 shadow-sm shadow-sky-500/5">
-          <span>OUR TEAM</span>
+      <div className="max-w-4xl mx-auto text-center mb-12 sm:mb-16 md:mb-20 relative z-10">
+        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-sky-50 to-blue-50 border border-sky-200/80 text-sky-700 text-xs font-['JetBrains_Mono'] font-bold tracking-widest uppercase mb-4 sm:mb-5 shadow-sm shadow-sky-500/5">
+          <span>Our Team</span>
         </div>
 
-        <h2 className="section-title-reveal font-['Plus_Jakarta_Sans'] font-extrabold text-[clamp(34px,4.2vw,56px)] leading-[1.08] tracking-[-0.035em] text-[#0b1528] mb-5">
-          The Minds Behind the Growth Engine
+        <h2 className="section-title-reveal font-['Plus_Jakarta_Sans'] font-extrabold text-[clamp(30px,4.2vw,56px)] leading-[1.1] sm:leading-[1.08] tracking-[-0.035em] text-[#0b1528] mb-4 sm:mb-5">
+          The People Behind the Growth
         </h2>
 
-        <p className="font-['Manrope'] text-[16px] sm:text-[18px] leading-relaxed text-slate-600 max-w-2xl mx-auto">
-          A multidisciplinary team of growth strategists, engineers, and creative architects collaborating to scale category-defining brands.
+        <p className="font-['Manrope'] text-[15px] sm:text-[17px] md:text-[18px] leading-relaxed text-slate-600 max-w-3xl mx-auto">
+          Our team brings together business development, performance marketing, web development, WordPress development, and video production expertise. Together, we work towards one goal - building better digital solutions that help businesses grow.
         </p>
       </div>
 
-      {/* ── Showcase Card Pod with Glassmorphism & Ambient Lighting ── */}
-      <div className="relative z-10 max-w-6xl mx-auto">
-        <div className="bg-white/85 backdrop-blur-xl rounded-[36px] sm:rounded-[44px] border border-slate-200/90 shadow-[0_25px_70px_-15px_rgba(14,165,233,0.12)] p-6 sm:p-10 lg:p-14 relative overflow-hidden">
+      {/* ── 3-Column Card Layout Matching Reference ── */}
+      <div className="relative z-10 max-w-[1240px] mx-auto">
+        <div className="flex flex-wrap justify-center gap-6 sm:gap-7 md:gap-8">
+          {members.map((member) => (
+            <div
+              key={member.id}
+              className="group relative overflow-hidden rounded-[26px] sm:rounded-[30px] md:rounded-[34px] bg-slate-900 aspect-[3.3/4] sm:aspect-[3.2/4] min-h-[380px] sm:min-h-[420px] md:min-h-[460px] w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.35rem)] max-w-[380px] border border-slate-200/40 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col justify-end cursor-pointer"
+              onMouseEnter={onHover}
+              onMouseLeave={onLeave}
+            >
+              {/* Member Photo Background */}
+              <img
+                src={member.image}
+                alt={member.name}
+                className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+              />
 
-          {/* Inner Pod Decorative Ambient Glows */}
-          <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-b from-sky-100/40 via-blue-50/20 to-transparent blur-3xl pointer-events-none rounded-full" />
-          <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-gradient-to-t from-indigo-50/40 via-sky-50/20 to-transparent blur-3xl pointer-events-none rounded-full" />
+              {/* Gradient Vignette for Bottom Text Contrast */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
 
-          {/* Main Interactive Showcase Layout */}
-          <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-start justify-center gap-10 md:gap-14 lg:gap-16 w-full select-none">
+              {/* Bottom Content: Name, Role & LinkedIn */}
+              <div className="relative z-10 p-6 sm:p-7 text-left flex items-end justify-between gap-3">
+                <div className="min-w-0">
+                  <h3 className="text-xl sm:text-[22px] font-extrabold font-['Plus_Jakarta_Sans'] text-white leading-tight tracking-tight drop-shadow-md">
+                    {member.name}
+                  </h3>
+                  <p className="text-xs sm:text-[13px] font-['Manrope'] text-white/90 font-medium mt-1 drop-shadow-sm">
+                    {member.role}
+                  </p>
+                </div>
 
-            {/* ── Left: 3-Column Staggered Photo Grid with Generous Padding ── */}
-            <div className="flex gap-4 sm:gap-5 md:gap-6 flex-shrink-0 justify-center p-2 sm:p-4">
-
-              {/* Column 1 */}
-              <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
-                {col1.map((member) => (
-                  <PhotoCard
-                    key={member.id}
-                    member={member}
-                    className="w-[115px] h-[135px] sm:w-[138px] sm:h-[160px] md:w-[164px] md:h-[190px]"
-                    selectedId={selectedId}
-                    onSelect={setSelectedId}
-                    onCursorHover={onHover}
-                    onCursorLeave={onLeave}
-                  />
-                ))}
-              </div>
-
-              {/* Column 2 (Offset Down) */}
-              <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 mt-[40px] sm:mt-[52px] md:mt-[64px]">
-                {col2.map((member) => (
-                  <PhotoCard
-                    key={member.id}
-                    member={member}
-                    className="w-[122px] h-[145px] sm:w-[148px] sm:h-[172px] md:w-[175px] md:h-[202px]"
-                    selectedId={selectedId}
-                    onSelect={setSelectedId}
-                    onCursorHover={onHover}
-                    onCursorLeave={onLeave}
-                  />
-                ))}
-              </div>
-
-              {/* Column 3 (Offset Medium) */}
-              <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 mt-[20px] sm:mt-[26px] md:mt-[32px]">
-                {col3.map((member) => (
-                  <PhotoCard
-                    key={member.id}
-                    member={member}
-                    className="w-[118px] h-[140px] sm:w-[142px] sm:h-[165px] md:w-[168px] md:h-[195px]"
-                    selectedId={selectedId}
-                    onSelect={setSelectedId}
-                    onCursorHover={onHover}
-                    onCursorLeave={onLeave}
-                  />
-                ))}
+                {member.social?.linkedin && (
+                  <a
+                    href={member.social.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="w-8 h-8 shrink-0 rounded-full bg-white/20 backdrop-blur-md hover:bg-[#0057ff] text-white flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-sm opacity-90 group-hover:opacity-100"
+                    aria-label={`${member.name} LinkedIn`}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                    </svg>
+                  </a>
+                )}
               </div>
             </div>
-
-            {/* ── Right: Interactive Member List ── */}
-            <div className="flex flex-col gap-3.5 sm:gap-4 pt-2 lg:pt-4 flex-1 w-full max-w-xl">
-              {members.map((member) => (
-                <MemberRow
-                  key={member.id}
-                  member={member}
-                  selectedId={selectedId}
-                  onSelect={setSelectedId}
-                  onCursorHover={onHover}
-                  onCursorLeave={onLeave}
-                />
-              ))}
-            </div>
-
-          </div>
+          ))}
         </div>
       </div>
     </section>
-  );
-}
-
-/* ─────────────────────────────────────────
-   Photo card component
-───────────────────────────────────────── */
-function PhotoCard({
-  member,
-  className,
-  selectedId,
-  onSelect,
-  onCursorHover,
-  onCursorLeave,
-}: {
-  member: TeamMember;
-  className: string;
-  selectedId: string | null;
-  onSelect: (id: string | null) => void;
-  onCursorHover?: () => void;
-  onCursorLeave?: () => void;
-}) {
-  const isActive = selectedId === member.id;
-  const isDimmed = selectedId !== null && !isActive;
-
-  return (
-    <div
-      className={`overflow-hidden rounded-2xl cursor-pointer flex-shrink-0 transition-all duration-400 relative border bg-gradient-to-br from-slate-100 to-slate-200/80 ${isActive
-        ? 'border-sky-500 shadow-[0_15px_40px_rgba(2,132,199,0.30)] scale-[1.04] z-20 ring-4 ring-sky-200/90'
-        : 'border-slate-200/90 shadow-md shadow-slate-200/60 hover:border-slate-300 hover:shadow-lg'
-        } ${isDimmed ? 'opacity-40 grayscale' : 'opacity-100'} ${className}`}
-      onMouseEnter={() => {
-        onSelect(member.id);
-        onCursorHover?.();
-      }}
-      onMouseLeave={() => {
-        onSelect(null);
-        onCursorLeave?.();
-      }}
-      onClick={() => onSelect(member.id)}
-    >
-      <img
-        src={member.image}
-        alt={member.name}
-        className="w-full h-full object-cover object-top transition-all duration-500"
-        style={{
-          filter: isActive
-            ? 'grayscale(0) brightness(1.02)'
-            : 'grayscale(0.9) brightness(0.85)',
-          transform: isActive ? 'scale(1.05)' : 'scale(1)',
-        }}
-      />
-      {/* Subtle Bottom Vignette */}
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/10 to-transparent pointer-events-none" />
-
-      {/* Member Name overlay on photo */}
-      <div className={`absolute bottom-2.5 left-2.5 right-2.5 text-white transition-all duration-300 ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}`}>
-        <p className="text-[11px] sm:text-xs font-bold font-['Plus_Jakarta_Sans'] leading-tight truncate drop-shadow-md">
-          {member.name}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-/* ─────────────────────────────────────────
-   Member name row component
-───────────────────────────────────────── */
-function MemberRow({
-  member,
-  selectedId,
-  onSelect,
-  onCursorHover,
-  onCursorLeave,
-}: {
-  member: TeamMember;
-  selectedId: string | null;
-  onSelect: (id: string | null) => void;
-  onCursorHover?: () => void;
-  onCursorLeave?: () => void;
-}) {
-  const isActive = selectedId === member.id;
-  const isDimmed = selectedId !== null && !isActive;
-  const hasSocial = Boolean(member.social?.linkedin);
-
-  return (
-    <div
-      className={`cursor-pointer transition-all duration-300 p-3.5 sm:p-4 rounded-2xl border ${isActive
-        ? 'bg-gradient-to-r from-sky-50 via-white to-blue-50/70 border-sky-200 shadow-md shadow-sky-500/10 translate-x-2'
-        : 'bg-white/40 border-transparent hover:bg-white/80 hover:border-slate-200/60'
-        } ${isDimmed ? 'opacity-35' : 'opacity-100'}`}
-      onMouseEnter={() => {
-        onSelect(member.id);
-        onCursorHover?.();
-      }}
-      onMouseLeave={() => {
-        onSelect(null);
-        onCursorLeave?.();
-      }}
-      onClick={() => onSelect(member.id)}
-    >
-      {/* Name + Indicator + Social Icons */}
-      <div className="flex items-center gap-3">
-        {/* Expanding Indicator Bar */}
-        <span
-          className={`h-4 rounded-full flex-shrink-0 transition-all duration-300 ${isActive
-            ? 'bg-gradient-to-r from-sky-500 to-blue-600 w-6 shadow-sm shadow-sky-500/30'
-            : 'bg-slate-300 w-2'
-            }`}
-        />
-
-        {/* Member Name */}
-        <span
-          className={`text-lg sm:text-xl font-bold font-['Plus_Jakarta_Sans'] leading-none tracking-tight transition-colors duration-300 ${isActive ? 'text-[#0b1528]' : 'text-slate-700'
-            }`}
-        >
-          {member.name}
-        </span>
-
-        {/* Animated Social Icon Tray - LinkedIn only */}
-        {hasSocial && member.social?.linkedin && (
-          <div
-            className={`flex items-center gap-1.5 ml-auto sm:ml-2 transition-all duration-250 ${isActive
-              ? 'opacity-100 translate-x-0'
-              : 'opacity-0 -translate-x-2 pointer-events-none'
-              }`}
-          >
-            <a
-              href={member.social.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="w-7 h-7 rounded-lg bg-blue-100/80 hover:bg-[#0057ff] text-[#0057ff] hover:text-white flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-xs"
-              title="LinkedIn"
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
-              </svg>
-            </a>
-          </div>
-        )}
-      </div>
-
-      {/* Role */}
-      <p className="mt-1.5 pl-[36px] text-xs font-mono font-bold uppercase tracking-[0.16em] text-slate-500">
-        {member.role}
-      </p>
-    </div>
   );
 }

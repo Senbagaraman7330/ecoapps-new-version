@@ -61,8 +61,8 @@ const rawSteps = [
     numStr: '01',
     name: 'DISCOVER',
     tag: 'STEP 01',
-    title: 'Understand Your Business',
-    description: 'We dive deep into your goals, audience, competitors, and challenges to uncover the real opportunities.',
+    title: 'Discover',
+    description: 'We understand your business, customers, competitors, goals, and challenges.',
     icon: Search,
   },
   {
@@ -70,8 +70,8 @@ const rawSteps = [
     numStr: '02',
     name: 'DIAGNOSE',
     tag: 'STEP 02',
-    title: 'Identify Leaks & Opportunities',
-    description: 'Identify visibility gaps, conversion funnel leaks, and high-ROI growth opportunities.',
+    title: 'Diagnose',
+    description: 'We identify visibility gaps, conversion issues, and growth opportunities.',
     icon: Target,
   },
   {
@@ -79,8 +79,8 @@ const rawSteps = [
     numStr: '03',
     name: 'STRATEGIZE',
     tag: 'STEP 03',
-    title: 'Customized Growth Strategy',
-    description: 'Build a customised digital growth strategy and attribution framework for compounding returns.',
+    title: 'Strategize',
+    description: 'We create a customized digital growth strategy based on your business objectives.',
     icon: Compass,
   },
   {
@@ -88,8 +88,8 @@ const rawSteps = [
     numStr: '04',
     name: 'BUILD',
     tag: 'STEP 04',
-    title: 'Campaigns, Content & Tech',
-    description: 'Create high-converting ad creatives, SEO content, websites, and automated digital systems.',
+    title: 'Build',
+    description: 'We develop the campaigns, content, websites, and digital systems required to execute the strategy.',
     icon: Code2,
   },
   {
@@ -97,8 +97,8 @@ const rawSteps = [
     numStr: '05',
     name: 'LAUNCH',
     tag: 'STEP 05',
-    title: 'Go-to-Market with Tracking',
-    description: 'Put the strategy into market with 100% accurate conversion tracking and analytics integration.',
+    title: 'Launch',
+    description: 'We take the solution to market with proper conversion tracking and analytics.',
     icon: Rocket,
   },
   {
@@ -106,8 +106,8 @@ const rawSteps = [
     numStr: '06',
     name: 'OPTIMIZE',
     tag: 'STEP 06',
-    title: 'Test, Analyse & Improve',
-    description: 'Continuous multivariate split testing, performance analysis, and conversion rate optimization.',
+    title: 'Optimize',
+    description: 'We test, analyse, and improve performance using real data.',
     icon: BarChart3,
   },
   {
@@ -115,8 +115,8 @@ const rawSteps = [
     numStr: '07',
     name: 'SCALE',
     tag: 'STEP 07',
-    title: 'Maximize Profitable Growth',
-    description: 'Double down and scale investment into the channels and strategies delivering verified profit.',
+    title: 'Scale',
+    description: 'We focus more on the strategies and channels that deliver verified and profitable growth.',
     icon: TrendingUp,
   },
 ];
@@ -206,15 +206,15 @@ export default function ProcessTimeline({ onHover, onLeave }: ProcessTimelinePro
       {/* Section Header */}
       <div className="max-w-4xl mx-auto text-center mb-10 md:mb-14 relative z-10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100/80 border border-sky-200 text-[#0057ff] text-xs font-['JetBrains_Mono'] font-bold tracking-widest uppercase mb-3 shadow-2xs">
-          <span>Our Process</span>
+          <span>How We Work</span>
         </div>
 
         <h2 className="section-title-reveal font-['Plus_Jakarta_Sans'] font-extrabold text-[clamp(28px,3.5vw,46px)] leading-[1.12] tracking-tight text-[#0b1528] mb-3">
-          From Business Challenge to Measurable Growth
+          From Business Challenges to Measurable Growth
         </h2>
 
         <p className="font-['Manrope'] text-[15px] sm:text-[16px] text-slate-600 max-w-2xl mx-auto">
-          A strategic, data-driven approach that turns insights into impact and goals into growth.
+          We follow a simple, structured process to turn business goals into measurable results.
         </p>
       </div>
 

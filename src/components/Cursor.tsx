@@ -8,10 +8,10 @@ export default function Cursor({ isHovered }: CursorProps) {
   const cursorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let mx = window.innerWidth / 2;
-    let my = window.innerHeight / 2;
-    let cx = mx;
-    let cy = my;
+    let mx = -9999;
+    let my = -9999;
+    let cx = -9999;
+    let cy = -9999;
     let cursorRafId: number;
 
     const handleMouseMove = (e: MouseEvent) => {

@@ -11,27 +11,25 @@ export default function SeoContactCtaSection({ onHover, onLeave }: SeoContactCta
       <div className="seo-container">
         <div className="seo-cta-banner">
           <h2>
-            Ready to build search visibility that compounds?
+            Let's build a search strategy that works for your business today
           </h2>
-          <p>
-            Partner with Eco Apps Solutions to rank for the searches that matter most, strengthen your technical foundations, and turn organic search into a predictable growth engine.
-          </p>
           <div className="seo-btn-wrap">
             <a
-              href="#pricing"
+              href="/contact"
               className="seo-btn seo-btn-primary"
               style={{
                 background: '#ffffff',
                 color: '#0b1528',
+                borderRadius: '9999px',
                 boxShadow: '0 8px 30px rgba(0, 0, 0, 0.25)',
               }}
               onMouseEnter={onHover}
               onMouseLeave={onLeave}
             >
-              <span style={{ fontWeight: 800 }}>Get an SEO Growth Strategy</span>
+              <span style={{ fontWeight: 800 }}>Talk to Our SEO Experts</span>
               <div
                 className="seo-btn-arrow-circle"
-                style={{ background: '#0284c7', color: '#ffffff' }}
+                style={{ background: '#0284c7', color: '#ffffff', borderRadius: '50%' }}
               >
                 <ArrowRight className="w-4 h-4" />
               </div>

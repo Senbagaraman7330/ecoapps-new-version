@@ -19,7 +19,6 @@ const serviceCategories: ServiceCategory[] = [
       'We create marketing strategies that increase visibility, generate qualified leads, and drive measurable growth.',
     items: [
       { name: 'SEO & AI SEO Services', href: '/seo-service' },
-      { name: 'Paid Ads & Performance Marketing', href: '/paid-ads-ppc' },
       { name: 'Social Media Marketing', href: '/social-media-marketing' },
       { name: 'Ecommerce Marketing', href: '/ecommerce-marketing' },
       { name: 'B2B Marketing', href: '/b2b-marketing' },
@@ -41,19 +40,6 @@ const serviceCategories: ServiceCategory[] = [
     bg: 'bg-blue-50/60',
   },
   {
-    number: '03',
-    title: 'AI & Automation',
-    description:
-      'We connect AI and automation to reduce manual work, improve efficiency, and build smarter business systems.',
-    items: [
-      { name: 'AI Automation', href: '/ai-automation' },
-      { name: 'AI Agents', href: '/ai-agents' },
-      { name: 'CRM Automation', href: '/crm-automation' },
-    ],
-    accent: '#4f46e5',
-    bg: 'bg-indigo-50/60',
-  },
-  {
     number: '04',
     title: 'Video Production',
     description:
@@ -61,8 +47,7 @@ const serviceCategories: ServiceCategory[] = [
     items: [
       { name: 'Brand Videos', href: '/brand-videos' },
       { name: 'Social Media Videos', href: '/social-media-videos' },
-      { name: 'Product Videos', href: '/product-videos' },
-      { name: 'Corporate Videos', href: '/corporate-videos' },
+      { name: 'Product & Corporate  Videos', href: '/product-videos' },
       { name: 'Reels & Short-Form Content', href: '/reels-short-form-content' },
       { name: 'Promotional Videos', href: '/promotional-videos' },
     ],
@@ -80,14 +65,6 @@ const industriesRow1 = [
   'Healthcare & Clinics',
   'E-Commerce Brands',
   'Hospitality & Dining',
-];
-
-const metricsRow2 = [
-  '50+ Brands Worked With',
-  '10K+ Leads Generated',
-  '100s of Videos Delivered',
-  'High-Volume Ad Campaigns Managed',
-  'Millions in Reach Generated',
 ];
 
 interface ServiceBandsStickyProps {
@@ -295,34 +272,6 @@ export default function ServiceBandsSticky({ onHover, onLeave }: ServiceBandsSti
                 >
                   <span className="font-['Plus_Jakarta_Sans'] font-bold text-[13px] md:text-[15px] text-slate-800 whitespace-nowrap">
                     {industry}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Row 2: Left-to-Right (Opposite Direction & Visual Variation) */}
-          <div className="flex gap-4 md:gap-6 overflow-hidden w-full py-1">
-            <div className="flex gap-4 md:gap-6 shrink-0 items-center animate-marquee">
-              {metricsRow2.concat(metricsRow2, metricsRow2, metricsRow2).map((metric, i) => (
-                <div
-                  key={`r2-${i}`}
-                  className="flex items-center px-5 md:px-6 py-2.5 md:py-3 rounded-2xl bg-[#0b1528] text-white border border-slate-800 shadow-md hover:border-sky-400 hover:shadow-[0_0_15px_rgba(56,189,248,0.25)] transition-all duration-200 cursor-default"
-                >
-                  <span className="font-['Plus_Jakarta_Sans'] font-extrabold text-[13px] md:text-[14.5px] tracking-tight text-white whitespace-nowrap">
-                    {metric}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <div className="flex gap-4 md:gap-6 shrink-0 items-center animate-marquee" aria-hidden="true">
-              {metricsRow2.concat(metricsRow2, metricsRow2, metricsRow2).map((metric, i) => (
-                <div
-                  key={`r2-dup-${i}`}
-                  className="flex items-center px-5 md:px-6 py-2.5 md:py-3 rounded-2xl bg-[#0b1528] text-white border border-slate-800 shadow-md hover:border-sky-400 hover:shadow-[0_0_15px_rgba(56,189,248,0.25)] transition-all duration-200 cursor-default"
-                >
-                  <span className="font-['Plus_Jakarta_Sans'] font-extrabold text-[13px] md:text-[14.5px] tracking-tight text-white whitespace-nowrap">
-                    {metric}
                   </span>
                 </div>
               ))}

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, MapPin, Mail, Phone } from 'lucide-react';
+import { ArrowRight, MapPin } from 'lucide-react';
 import logoImg from '../assets/logo-ecoapps.png';
 
 interface FooterProps {
@@ -118,7 +118,7 @@ export default function Footer({ onHover, onLeave }: FooterProps) {
           </div>
 
           {/* Navigation Links Columns */}
-          <div className="lg:col-span-8 xl:col-span-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5 lg:gap-3">
+          <div className="lg:col-span-8 xl:col-span-8 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-5 lg:gap-4">
 
             {/* 1. Company */}
             <div className="flex flex-col">
@@ -156,13 +156,8 @@ export default function Footer({ onHover, onLeave }: FooterProps) {
               </h4>
               <ul className="flex flex-col gap-1.5 font-['Manrope'] text-[12.5px] text-slate-600">
                 <li>
-                  <Link to="/seo-service" className="hover:text-[#0057ff] hover:translate-x-0.5 inline-block transition-all font-medium text-slate-800" onMouseEnter={onHover} onMouseLeave={onLeave}>
+                  <Link to="/seo-service" className="hover:text-[#0057ff] hover:translate-x-0.5 inline-block transition-all" onMouseEnter={onHover} onMouseLeave={onLeave}>
                     SEO &amp; AI SEO Services
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/paid-ads-ppc" className="hover:text-[#0057ff] hover:translate-x-0.5 inline-block transition-all" onMouseEnter={onHover} onMouseLeave={onLeave}>
-                    Paid Ads &amp; PPC
                   </Link>
                 </li>
                 <li>
@@ -183,27 +178,12 @@ export default function Footer({ onHover, onLeave }: FooterProps) {
               </ul>
             </div>
 
-            {/* 3. Software Services */}
+            {/* 3. Development Services */}
             <div className="flex flex-col">
               <h4 className="font-['JetBrains_Mono'] text-[10.5px] uppercase tracking-[0.14em] text-[#0b1528] font-bold mb-2 pb-1 border-b border-slate-200/80">
-                Software
+                Development
               </h4>
               <ul className="flex flex-col gap-1.5 font-['Manrope'] text-[12.5px] text-slate-600">
-                <li>
-                  <Link to="/ai-automation" className="hover:text-[#0057ff] hover:translate-x-0.5 inline-block transition-all" onMouseEnter={onHover} onMouseLeave={onLeave}>
-                    AI Automation &amp; Agents
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/custom-software-development" className="hover:text-[#0057ff] hover:translate-x-0.5 inline-block transition-all" onMouseEnter={onHover} onMouseLeave={onLeave}>
-                    Custom Development
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/crm-automation" className="hover:text-[#0057ff] hover:translate-x-0.5 inline-block transition-all" onMouseEnter={onHover} onMouseLeave={onLeave}>
-                    CRM Automation
-                  </Link>
-                </li>
                 <li>
                   <Link to="/website-development" className="hover:text-[#0057ff] hover:translate-x-0.5 inline-block transition-all" onMouseEnter={onHover} onMouseLeave={onLeave}>
                     Website Development
@@ -212,6 +192,11 @@ export default function Footer({ onHover, onLeave }: FooterProps) {
                 <li>
                   <Link to="/mobile-app-development" className="hover:text-[#0057ff] hover:translate-x-0.5 inline-block transition-all" onMouseEnter={onHover} onMouseLeave={onLeave}>
                     Mobile App Development
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/custom-software-development" className="hover:text-[#0057ff] hover:translate-x-0.5 inline-block transition-all" onMouseEnter={onHover} onMouseLeave={onLeave}>
+                    Custom Development
                   </Link>
                 </li>
               </ul>
@@ -224,48 +209,9 @@ export default function Footer({ onHover, onLeave }: FooterProps) {
               </h4>
               <ul className="flex flex-col gap-1.5 font-['Manrope'] text-[12.5px] text-slate-600">
                 <li>
-                  <Link to="/#case-studies" className="hover:text-[#0057ff] hover:translate-x-0.5 inline-block transition-all" onMouseEnter={onHover} onMouseLeave={onLeave}>
-                    Case Studies
-                  </Link>
-                </li>
-                <li>
                   <Link to="/faqs" className="hover:text-[#0057ff] hover:translate-x-0.5 inline-block transition-all" onMouseEnter={onHover} onMouseLeave={onLeave}>
                     FAQs
                   </Link>
-                </li>
-                <li>
-                  <Link to="/about" className="hover:text-[#0057ff] hover:translate-x-0.5 inline-block transition-all" onMouseEnter={onHover} onMouseLeave={onLeave}>
-                    About Team
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* 5. Legal */}
-            <div className="flex flex-col">
-              <h4 className="font-['JetBrains_Mono'] text-[10.5px] uppercase tracking-[0.14em] text-[#0b1528] font-bold mb-2 pb-1 border-b border-slate-200/80">
-                Legal
-              </h4>
-              <ul className="flex flex-col gap-1.5 font-['Manrope'] text-[12.5px] text-slate-600">
-                <li>
-                  <a href="#privacy" className="hover:text-[#0057ff] hover:translate-x-0.5 inline-block transition-all">
-                    Privacy Policy
-                  </a>
-                </li>
-                <li>
-                  <a href="#terms" className="hover:text-[#0057ff] hover:translate-x-0.5 inline-block transition-all">
-                    Terms &amp; Conditions
-                  </a>
-                </li>
-                <li>
-                  <a href="#disclaimer" className="hover:text-[#0057ff] hover:translate-x-0.5 inline-block transition-all">
-                    Disclaimer
-                  </a>
-                </li>
-                <li>
-                  <a href="#cookies" className="hover:text-[#0057ff] hover:translate-x-0.5 inline-block transition-all">
-                    Cookie Policy
-                  </a>
                 </li>
               </ul>
             </div>
@@ -276,7 +222,18 @@ export default function Footer({ onHover, onLeave }: FooterProps) {
         {/* Footer Bottom Bar */}
         <div className="pt-4 flex flex-col md:flex-row justify-between items-center gap-2.5 font-['JetBrains_Mono'] text-[10.5px] tracking-wide text-slate-500 text-center md:text-left">
           <div>
-            © 2026 <span className="font-semibold text-slate-700">Eco Apps Solutions</span> — A Unit of <span className="font-semibold text-slate-700">Data Apps Technologies</span>. All Rights Reserved.
+            © 2026 <span className="font-semibold text-slate-700">Eco Apps Solutions</span> — A Unit of{' '}
+            <a
+              href="https://dataapps.cloud"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-slate-700 hover:text-[#0057ff] transition-colors underline decoration-slate-300 hover:decoration-[#0057ff]"
+              onMouseEnter={onHover}
+              onMouseLeave={onLeave}
+            >
+              Data Apps Technologies
+            </a>
+            . All Rights Reserved.
           </div>
           <a
             href="https://www.google.com/maps/place/Eco+Apps+Solutions/@10.9675734,76.9764262,17z/data=!4m6!3m5!1s0x3ba85b9c03939a49:0xeccdd74bb2b11d79!8m2!3d10.9677379!4d76.9789687!16s%2Fg%2F11z732wxqb?entry=ttu&g_ep=EgoyMDI2MDkwMS4wIKXMDSoASAFQAw%3D%3D"

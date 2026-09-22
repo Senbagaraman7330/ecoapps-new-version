@@ -811,9 +811,10 @@ export default function AwardsCurvedSection({ onHover, onLeave }: AwardsCurvedSe
                     Project Scope
                   </label>
                   <select className="w-full border-b border-slate-300 py-3 text-sm font-bold text-slate-800 bg-transparent outline-none focus:border-sky-600 transition cursor-pointer">
-                    <option>$10k – $25k</option>
-                    <option>$25k – $50k</option>
-                    <option>$50k+</option>
+                    <option>₹50,000 – ₹1,00,000</option>
+                    <option>₹1,00,000 – ₹2,50,000</option>
+                    <option>₹2,50,000 – ₹5,00,000</option>
+                    <option>₹5,00,000+</option>
                   </select>
                 </div>
                 <div>

@@ -4,7 +4,6 @@ import {
   Sparkles,
   Search,
   Code2,
-  Workflow,
   ArrowRight,
 } from 'lucide-react';
 
@@ -51,15 +50,6 @@ const specialisms = [
     text: 'text-slate-800',
     hover: 'hover:border-slate-400 hover:shadow-[0_4px_14px_rgba(15,23,42,0.12)]',
     iconColor: 'text-[#0057ff]',
-  },
-  {
-    name: 'Automation',
-    icon: Workflow,
-    bg: 'bg-purple-50/90',
-    border: 'border-purple-200/90',
-    text: 'text-purple-700',
-    hover: 'hover:border-purple-400 hover:shadow-[0_4px_14px_rgba(147,51,234,0.18)]',
-    iconColor: 'text-purple-600',
   },
 ];
 
@@ -143,7 +133,7 @@ export default function Hero({
       </div>
 
       {/* 3D Interactive Constellation Graphic */}
-      <div className="hero-right hidden md:flex items-center justify-center relative scale-[0.78] sm:scale-[0.82] md:scale-[0.86] lg:scale-[0.86] xl:scale-[0.90] origin-center">
+      <div className="hero-right hidden md:flex items-center justify-center relative scale-[0.58] sm:scale-[0.62] md:scale-[0.68] lg:scale-[0.72] xl:scale-[0.78] 2xl:scale-[0.82] origin-center">
         <Constellation
           ref={constellationRef}
           innerRef={constellationInnerRef}

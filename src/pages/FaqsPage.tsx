@@ -3,6 +3,8 @@ import Header from '../components/Header';
 import FinalCTA from '../components/FinalCTA';
 import Footer from '../components/Footer';
 import Cursor from '../components/Cursor';
+import SEO from '../components/SEO';
+import { faqsSchema } from '../data/schemas';
 import { ChevronDown, HelpCircle, Search } from 'lucide-react';
 
 interface FAQItem {
@@ -89,6 +91,14 @@ export default function FaqsPage() {
 
   return (
     <div className="relative w-full min-h-screen bg-white text-[#0b1528] selection:bg-[#0284c7] selection:text-white font-['Manrope'] overflow-x-hidden">
+      {/* SEO Metadata & Canonical */}
+      <SEO
+        title="Frequently Asked Questions about Eco Apps Solutions Agency"
+        description="Find answers to frequently asked questions about SEO, digital marketing, website development, mobile app development and other services."
+        canonical="https://ecoappssolutions.com/faqs"
+        schema={faqsSchema}
+      />
+
       <Cursor isHovered={isCursorHovered} />
       <Header onHover={handleCursorHover} onLeave={handleCursorLeave} />
 

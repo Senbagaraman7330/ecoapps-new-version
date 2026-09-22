@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Cursor from '../components/Cursor';
-import { MapPin, Mail, Phone, Clock, Navigation, ExternalLink, Send, CheckCircle2 } from 'lucide-react';
+import SEO from '../components/SEO';
+import { contactSchema } from '../data/schemas';
+import { MapPin, Mail, Phone, Clock, Navigation, ExternalLink, Send, CheckCircle2, RefreshCw, ShieldCheck } from 'lucide-react';
 
 const GOOGLE_MAPS_URL =
   'https://www.google.com/maps/place/Eco+Apps+Solutions/@10.9675734,76.9764262,17z/data=!4m6!3m5!1s0x3ba85b9c03939a49:0xeccdd74bb2b11d79!8m2!3d10.9677379!4d76.9789687!16s%2Fg%2F11z732wxqb?entry=ttu&g_ep=EgoyMDI2MDkwMS4wIKXMDSoASAFQAw%3D%3D';
@@ -10,26 +12,57 @@ const GOOGLE_MAPS_URL =
 export default function ContactPage() {
   const [isCursorHovered, setIsCursorHovered] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [captchaCode, setCaptchaCode] = useState('');
+  const [captchaInput, setCaptchaInput] = useState('');
+  const [captchaError, setCaptchaError] = useState('');
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    company: '',
     service: 'SEO & AI Search',
-    budget: '$10k – $25k',
+    budget: '₹50,000 – ₹1,00,000',
     message: '',
   });
+
+  const generateCaptcha = () => {
+    // Generates a simple, crisp 4-character alphanumeric matching code
+    const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+    let code = '';
+    for (let i = 0; i < 4; i++) {
+      code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    setCaptchaCode(code);
+    setCaptchaInput('');
+    setCaptchaError('');
+  };
+
+  useEffect(() => {
+    generateCaptcha();
+  }, []);
 
   const handleCursorHover = () => setIsCursorHovered(true);
   const handleCursorLeave = () => setIsCursorHovered(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (captchaInput.trim().toUpperCase() !== captchaCode.toUpperCase()) {
+      setCaptchaError('Security code does not match. Please try again.');
+      generateCaptcha();
+      return;
+    }
+    setCaptchaError('');
     setIsSubmitted(true);
   };
 
   return (
     <div className="relative w-full min-h-screen bg-white text-[#0b1528] selection:bg-[#0284c7] selection:text-white font-['Manrope'] overflow-x-hidden">
+      <SEO
+        title="Contact Eco Apps Solutions for Digital Marketing Services"
+        description="Contact Eco Apps Solutions for Best SEO, Google Ads, Meta Ads, branding, website development and lead generation services in Coimbatore."
+        canonical="https://ecoappssolutions.com/contact"
+        schema={contactSchema}
+      />
       <Cursor isHovered={isCursorHovered} />
       <Header onHover={handleCursorHover} onLeave={handleCursorLeave} />
 
@@ -122,21 +155,6 @@ export default function ContactPage() {
 
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
-                      Company / Website
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="company.com"
-                      value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-[#0057ff] focus:ring-2 focus:ring-sky-100 outline-none transition text-sm font-medium"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
                       Primary Service Needed
                     </label>
                     <select
@@ -151,22 +169,23 @@ export default function ContactPage() {
                       <option>Full-Funnel Digital Growth</option>
                     </select>
                   </div>
+                </div>
 
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
-                      Estimated Monthly Budget
-                    </label>
-                    <select
-                      value={formData.budget}
-                      onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-[#0057ff] outline-none transition text-sm font-bold text-slate-800 cursor-pointer"
-                    >
-                      <option>$5k – $10k</option>
-                      <option>$10k – $25k</option>
-                      <option>$25k – $50k</option>
-                      <option>$50k+</option>
-                    </select>
-                  </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                    Estimated Monthly Budget
+                  </label>
+                  <select
+                    value={formData.budget}
+                    onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-[#0057ff] outline-none transition text-sm font-bold text-slate-800 cursor-pointer"
+                  >
+                    <option>₹25,000 – ₹50,000</option>
+                    <option>₹50,000 – ₹1,00,000</option>
+                    <option>₹1,00,000 – ₹2,50,000</option>
+                    <option>₹2,50,000 – ₹5,00,000</option>
+                    <option>₹5,00,000+</option>
+                  </select>
                 </div>
 
                 <div>
@@ -180,6 +199,52 @@ export default function ContactPage() {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-[#0057ff] focus:ring-2 focus:ring-sky-100 outline-none transition text-sm font-medium"
                   />
+                </div>
+
+                {/* ── Very Simple Matching Captcha Verification ── */}
+                <div className="p-4.5 rounded-2xl bg-slate-50 border border-slate-200">
+                  <div className="flex items-center gap-2 mb-2.5">
+                    <ShieldCheck className="w-4 h-4 text-[#0057ff]" />
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                      Security Verification *
+                    </label>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    {/* Matching Captcha Code Badge */}
+                    <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 select-none shadow-inner shrink-0">
+                      <span className="font-['JetBrains_Mono'] text-lg font-extrabold tracking-[0.35em] text-sky-400 font-mono">
+                        {captchaCode}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={generateCaptcha}
+                        className="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer ml-1"
+                        title="Generate New Code"
+                      >
+                        <RefreshCw className="w-4 h-4" />
+                      </button>
+                    </div>
+
+                    {/* Input Field to Match Captcha Code */}
+                    <input
+                      type="text"
+                      required
+                      placeholder="Type the code shown on left"
+                      value={captchaInput}
+                      onChange={(e) => {
+                        setCaptchaInput(e.target.value);
+                        if (captchaError) setCaptchaError('');
+                      }}
+                      className="flex-1 px-4 py-2.5 rounded-xl bg-white border border-slate-200 focus:border-[#0057ff] focus:ring-2 focus:ring-sky-100 outline-none transition text-sm font-semibold tracking-wider uppercase placeholder:normal-case placeholder:font-normal"
+                    />
+                  </div>
+
+                  {captchaError && (
+                    <p className="text-xs font-semibold text-rose-600 mt-2">
+                      {captchaError}
+                    </p>
+                  )}
                 </div>
 
                 <button

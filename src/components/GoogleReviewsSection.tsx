@@ -111,14 +111,11 @@ const googleReviews: GoogleReview[] = [
   },
 ];
 
-const row1Reviews = googleReviews.slice(0, 6);
-const row2Reviews = googleReviews.slice(6, 12);
-
-// --- Sub-Component for Auto-Scrolling Horizontal Rows ---
+// --- Sub-Component for Auto-Scrolling Horizontal Single Row ---
 const TestimonialsRow = ({
   className = '',
   testimonials,
-  duration = 32,
+  duration = 195,
   reverse = false,
 }: {
   className?: string;
@@ -139,7 +136,7 @@ const TestimonialsRow = ({
           ease: 'linear',
           repeatType: 'loop',
         }}
-        className="flex gap-5 sm:gap-6 w-max list-none m-0 p-0 py-2"
+        className="flex gap-5 sm:gap-6 w-max list-none m-0 p-0 py-3"
       >
         {[...new Array(2)].map((_, index) => (
           <React.Fragment key={index}>
@@ -276,17 +273,13 @@ export default function GoogleReviewsSection() {
           </div>
         </div>
 
-        {/* 2-Row Dual-Direction Horizontal Scrolling Marquee with Edge Fades */}
+        {/* 1-Row Smooth Scrolling Marquee with Edge Fades */}
         <div
-          className="relative flex flex-col gap-4 sm:gap-5 [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)] overflow-hidden"
+          className="relative flex flex-col gap-4 [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)] overflow-hidden"
           role="region"
           aria-label="Scrolling Testimonials"
         >
-          {/* Row 1: Right to Left */}
-          <TestimonialsRow testimonials={row1Reviews} duration={36} reverse={false} />
-
-          {/* Row 2: Left to Right (Opposite Direction) */}
-          <TestimonialsRow testimonials={row2Reviews} duration={36} reverse={true} />
+          <TestimonialsRow testimonials={googleReviews} duration={195} reverse={false} />
         </div>
       </motion.div>
     </section>

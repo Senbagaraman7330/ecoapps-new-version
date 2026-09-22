@@ -4,6 +4,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 // Modular Components
 import Cursor from '../components/Cursor';
+import SEO from '../components/SEO';
+import { homeSchema } from '../data/schemas';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import StatsBar from '../components/StatsBar';
@@ -35,94 +37,77 @@ export default function HomePage() {
       });
 
       // Initial State settings
-      gsap.set('.hero-desc, .cta-btn, .secondary-btn, .workspace', { opacity: 0 });
-      gsap.set('.title-inner', { y: '110%' });
-      gsap.set('.tile', { opacity: 0, scale: 0 });
+      gsap.set('.title-inner', { y: '105%', opacity: 0 });
+      gsap.set('.hero-badge, .hero-desc, .cta-btn, .secondary-btn, .workspace', { opacity: 0, y: 16 });
+      gsap.set('.tile', { opacity: 0, scale: 0.7 });
 
       // Page entrance timeline
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      tl.to(
-        '.title-inner',
-        { y: 0, duration: 0.75, stagger: 0.06, ease: 'power4.out' },
-        0.1
-      )
-        .to('.hero-desc', { opacity: 1, duration: 0.55 }, 0.55)
-        .from('.hero-desc', { y: 14, duration: 0.55 }, 0.55)
-        .to('.cta-btn, .secondary-btn', { opacity: 1, duration: 0.45, stagger: 0.08 }, 0.65)
-        .from('.cta-btn, .secondary-btn', { y: 14, duration: 0.45, stagger: 0.08 }, 0.65)
-        .to(
-          '.tile',
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.8,
-            stagger: { each: 0.045, from: 'center' },
-            ease: 'back.out(1.4)'
-          },
-          0.3
-        )
-        .from(
-          '.tile',
-          {
-            scale: 0,
-            duration: 0.8,
-            stagger: { each: 0.045, from: 'center' },
-            ease: 'back.out(1.4)'
-          },
-          0.3
-        )
-        .to(
-          '.constellation-lines path',
-          {
-            strokeDashoffset: 0,
-            duration: 0.9,
-            stagger: 0.04,
-            ease: 'power2.inOut'
-          },
-          0.4
-        )
-        .to('.workspace', { opacity: 1, duration: 0.5 }, 0.9)
-        .from(
+      tl.to('.hero-badge', {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power3.out',
+      }, 0.05)
+        .to('.title-inner', {
+          y: '0%',
+          opacity: 1,
+          duration: 0.95,
+          stagger: 0.1,
+          ease: 'power3.out',
+        }, 0.15)
+        .to('.hero-desc', {
+          opacity: 1,
+          y: 0,
+          duration: 0.65,
+          ease: 'power3.out',
+        }, 0.45)
+        .to('.cta-btn, .secondary-btn', {
+          opacity: 1,
+          y: 0,
+          duration: 0.55,
+          stagger: 0.08,
+          ease: 'power3.out',
+        }, 0.55)
+        .to('.tile', {
+          opacity: 1,
+          scale: 1,
+          duration: 0.75,
+          stagger: { each: 0.04, from: 'center' },
+          ease: 'back.out(1.5)',
+        }, 0.3)
+        .to('.constellation-lines path', {
+          strokeDashoffset: 0,
+          duration: 0.85,
+          stagger: 0.03,
+          ease: 'power2.inOut',
+        }, 0.4)
+        .to('.workspace', {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'power3.out',
+        }, 0.75)
+        .fromTo(
           '.fpill',
+          { y: 16, scale: 0.8, opacity: 0 },
           {
-            y: 20,
-            scale: 0.6,
-            opacity: 0,
-            duration: 0.55,
-            stagger: 0.07,
-            ease: 'back.out(1.6)'
+            y: 0,
+            scale: 1,
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.06,
+            ease: 'back.out(1.4)',
           },
-          0.9
+          0.75
         )
-        .from(
+        .fromTo(
           '.workspace-label, .learn-more',
-          { y: 14, opacity: 0, duration: 0.45, stagger: 0.08 },
-          0.9
+          { y: 12, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.45, stagger: 0.06, ease: 'power3.out' },
+          0.8
         );
-
-      // 3. Hero Parallax Scroll
-      gsap.to('.constellation', {
-        y: 100,
-        scale: 0.92,
-        scrollTrigger: {
-          trigger: '.hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1
-        }
-      });
-
-      gsap.to('.hero-left', {
-        y: 60,
-        opacity: 0.4,
-        scrollTrigger: {
-          trigger: '.hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1
-        }
-      });
 
       // 4. Stat Counter Animations
       document.querySelectorAll<HTMLElement>('.stat-num').forEach((el) => {
@@ -154,42 +139,32 @@ export default function HomePage() {
         });
       });
 
-      // 5. Section Title Word-by-Word Scroll Reveals
-      const revealWords = (
-        selector: string,
-        duration: number,
-        stagger: number,
-        start: string,
-        isAccentHighlight = false
-      ) => {
+      // 5. Section Title Scroll Reveals
+      const revealElements = (selector: string, start = 'top 88%') => {
         const elements = document.querySelectorAll<HTMLElement>(selector);
         elements.forEach((el) => {
-          const text = el.innerText;
-          const words = text.split(' ');
-          el.innerHTML = words
-            .map((w) => {
-              const isAccent = isAccentHighlight && (w.toLowerCase().includes('good') || w.toLowerCase().includes('leads') || w.toLowerCase().includes('ones'));
-              return `<span class="sword inline-block overflow-hidden pb-[0.12em] align-top"><span class="sword-inner inline-block will-change-transform ${isAccent ? 'text-sky-400' : ''}">${w}</span></span>`;
-            })
-            .join(' ');
-            
-          gsap.to(el.querySelectorAll('.sword-inner'), {
-            y: 0,
-            duration: duration,
-            stagger: stagger,
-            ease: 'power4.out',
-            scrollTrigger: {
-              trigger: el,
-              start: start,
-              toggleActions: 'play none none reverse'
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 28 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.85,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: el,
+                start: start,
+                once: true,
+              },
             }
-          });
+          );
         });
       };
 
-      revealWords('.features-title-reveal', 1, 0.04, 'top 80%');
-      revealWords('.final-cta-h2-reveal', 1, 0.05, 'top 80%', true);
-      revealWords('.section-title-reveal', 1, 0.04, 'top 85%');
+      revealElements('.features-title-reveal', 'top 88%');
+      revealElements('.final-cta-h2-reveal', 'top 88%');
+      revealElements('.section-title-reveal', 'top 88%');
+      revealElements('.quote-text-reveal', 'top 88%');
 
       // 6. Feature Cards Stagger In (all screen sizes via GSAP)
       gsap.from('.feature-card', {
@@ -328,6 +303,14 @@ export default function HomePage() {
 
   return (
     <div ref={containerRef} className="relative w-full min-h-screen bg-white text-[#0b1528] selection:bg-[#0284c7] selection:text-white font-['Manrope'] overflow-x-hidden">
+      {/* SEO Metadata & Canonical */}
+      <SEO
+        title="Best Digital Marketing Company in Coimbatore"
+        description="Eco Apps Solutions is a leading digital marketing company in Coimbatore offering SEO, Google Ads, Meta Ads, branding and lead generation services."
+        canonical="https://ecoappssolutions.com/"
+        schema={homeSchema}
+      />
+
       {/* Interactive Cursor Component */}
       <Cursor isHovered={isCursorHovered} />
 
@@ -352,7 +335,7 @@ export default function HomePage() {
       <ServiceBandsSticky onHover={handleCursorHover} onLeave={handleCursorLeave} />
 
       <ClientMarquee />
- 
+
       <AwardsCurvedSection onHover={handleCursorHover} onLeave={handleCursorLeave} />
 
       <GoogleReviewsSection />

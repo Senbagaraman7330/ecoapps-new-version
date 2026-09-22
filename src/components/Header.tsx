@@ -10,18 +10,15 @@ interface HeaderProps {
 
 const marketingServices = [
   { name: 'SEO & AI SEO Services', href: '/seo-service' },
-  { name: 'Paid ads and PPC', href: '/paid-ads-ppc' },
   { name: 'Social media marketing', href: '/social-media-marketing' },
   { name: 'Ecommerce marketing', href: '/ecommerce-marketing' },
   { name: 'B2B marketing', href: '/b2b-marketing' },
 ];
 
 const softwareServices = [
-  { name: 'AI automation and AI agents', href: '/ai-automation' },
-  { name: 'Custom developments', href: '/custom-software-development' },
-  { name: 'CRM automation', href: '/crm-automation' },
   { name: 'Website development', href: '/website-development' },
   { name: 'Mobile app development', href: '/mobile-app-development' },
+  { name: 'Custom developments', href: '/custom-software-development' },
 ];
 
 export default function Header({ onHover, onLeave }: HeaderProps) {
@@ -97,23 +94,27 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
 
   return (
     <header
-      className={`site-header fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full flex flex-col ${
         isHidden && !mobileMenuOpen ? '-translate-y-full' : 'translate-y-0'
       } ${
         isScrolled
           ? 'bg-white/95 backdrop-blur-xl shadow-[0_8px_30px_-6px_rgba(11,21,40,0.08)] border-b border-slate-200/80 py-3 md:py-3.5'
-          : 'bg-white/90 backdrop-blur-lg border-b border-slate-200/60 shadow-[0_2px_15px_-3px_rgba(11,21,40,0.03)] py-4 md:py-5'
+          : 'bg-white/90 backdrop-blur-lg border-b border-slate-200/60 shadow-[0_2px_15px_-3px_rgba(11,21,40,0.03)] py-3.5 md:py-4.5'
       }`}
     >
       <div
         style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
-        className="w-full max-w-[1520px] mx-auto flex items-center justify-between px-6 sm:px-10 md:px-12 lg:px-16"
+        className="w-full max-w-[1520px] mx-auto flex items-center justify-between px-5 sm:px-10 md:px-12 lg:px-16 relative z-10"
       >
         {/* Brand Logo */}
-        <div className="flex items-center shrink-0 pr-6 xl:pr-10">
+        <div className="flex items-center shrink-0 pr-4 xl:pr-10">
           <Link
             to="/"
             className="flex items-center gap-3 select-none cursor-pointer transition-transform duration-200 hover:scale-[1.02] z-20"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              setMobileExpanded(null);
+            }}
             onMouseEnter={onHover}
             onMouseLeave={onLeave}
           >
@@ -122,8 +123,8 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
               alt="EcoApps Solutions - Tech & Digital Marketing"
               className={`w-auto object-contain drop-shadow-xs transition-all duration-300 ${
                 isScrolled
-                  ? 'h-9 sm:h-9 md:h-[36px]'
-                  : 'h-10 sm:h-10 md:h-[42px]'
+                  ? 'h-8 sm:h-9 md:h-[36px]'
+                  : 'h-9 sm:h-10 md:h-[42px]'
               }`}
             />
           </Link>
@@ -142,7 +143,18 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
             <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-[#0057ff] to-[#0ea5e9] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center" />
           </Link>
 
-          {/* 2. Marketing services Dropdown */}
+          {/* 2. About Us */}
+          <Link
+            to="/about"
+            className="relative px-3 py-1.5 transition-colors duration-200 hover:text-[#0057ff] group cursor-pointer"
+            onMouseEnter={onHover}
+            onMouseLeave={onLeave}
+          >
+            <span>About Us</span>
+            <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-[#0057ff] to-[#0ea5e9] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center" />
+          </Link>
+
+          {/* 3. Marketing Services Dropdown */}
           <div
             className="relative"
             onMouseEnter={() => handleMouseEnter('marketing')}
@@ -155,7 +167,7 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
                 activeDropdown === 'marketing' ? 'text-[#0057ff]' : 'text-slate-700 hover:text-[#0057ff]'
               }`}
             >
-              <span>Marketing services</span>
+              <span>Marketing Services</span>
               <ChevronDown
                 className={`w-3.5 h-3.5 transition-transform duration-200 stroke-[2.5] ${
                   activeDropdown === 'marketing' ? 'rotate-180 text-[#0057ff]' : 'text-slate-500'
@@ -214,7 +226,7 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
             </div>
           </div>
 
-          {/* 3. Software services Dropdown */}
+          {/* 4. Development Services Dropdown */}
           <div
             className="relative"
             onMouseEnter={() => handleMouseEnter('software')}
@@ -227,7 +239,7 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
                 activeDropdown === 'software' ? 'text-[#0057ff]' : 'text-slate-700 hover:text-[#0057ff]'
               }`}
             >
-              <span>Software services</span>
+              <span>Development Services</span>
               <ChevronDown
                 className={`w-3.5 h-3.5 transition-transform duration-200 stroke-[2.5] ${
                   activeDropdown === 'software' ? 'rotate-180 text-[#0057ff]' : 'text-slate-500'
@@ -286,25 +298,14 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
             </div>
           </div>
 
-          {/* 4. About */}
-          <Link
-            to="/about"
-            className="relative px-3 py-1.5 transition-colors duration-200 hover:text-[#0057ff] group cursor-pointer"
-            onMouseEnter={onHover}
-            onMouseLeave={onLeave}
-          >
-            <span>About</span>
-            <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-[#0057ff] to-[#0ea5e9] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center" />
-          </Link>
-
-          {/* 5. Contact */}
+          {/* 5. Contact Us */}
           <Link
             to="/contact"
             className="relative px-3 py-1.5 transition-colors duration-200 hover:text-[#0057ff] group cursor-pointer"
             onMouseEnter={onHover}
             onMouseLeave={onLeave}
           >
-            <span>Contact</span>
+            <span>Contact Us</span>
             <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-[#0057ff] to-[#0ea5e9] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center" />
           </Link>
         </nav>
@@ -328,145 +329,186 @@ export default function Header({ onHover, onLeave }: HeaderProps) {
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2 rounded-xl text-slate-800 hover:bg-slate-100 transition-colors z-20 cursor-pointer"
+          className="lg:hidden p-2 rounded-xl text-slate-800 hover:bg-slate-100 active:scale-95 transition-all z-20 cursor-pointer flex items-center justify-center border border-slate-200/80 bg-white/90 shadow-xs"
           aria-label="Toggle Menu"
         >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileMenuOpen ? <X className="w-5 h-5 text-slate-900 stroke-[2.5]" /> : <Menu className="w-5 h-5 text-slate-900 stroke-[2.5]" />}
         </button>
       </div>
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-200 px-6 py-6 font-['Manrope'] shadow-xl animate-in slide-in-from-top-2 fade-in duration-250 max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain">
-          <div className="flex flex-col gap-4">
-            <Link
-              to="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="font-bold text-[16px] text-slate-900 py-1"
-            >
-              Home
-            </Link>
+        <>
+          {/* Backdrop for outside clicks */}
+          <div
+            className="fixed inset-0 top-[56px] sm:top-[64px] bg-slate-900/30 backdrop-blur-xs z-30 lg:hidden"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              setMobileExpanded(null);
+            }}
+            aria-hidden="true"
+          />
 
-            {/* Mobile Marketing Services Accordion */}
-            <div className="border-t border-slate-100 pt-3">
-              <button
-                type="button"
-                onClick={() => setMobileExpanded(mobileExpanded === 'marketing' ? null : 'marketing')}
-                className="w-full flex items-center justify-between font-bold text-[16px] text-slate-900 py-1"
+          <div className="relative z-40 w-full lg:hidden bg-white/98 backdrop-blur-2xl border-t border-slate-200/80 px-6 py-6 font-['Manrope'] shadow-2xl animate-in slide-in-from-top-2 fade-in duration-200 max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain">
+            <div className="flex flex-col gap-3">
+              {/* 1. Home */}
+              <Link
+                to="/"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setMobileExpanded(null);
+                }}
+                className="font-bold text-[16px] text-slate-900 hover:text-[#0057ff] py-1.5 px-1 transition-colors flex items-center justify-between"
               >
-                <span>Marketing services</span>
-                <ChevronDown
-                  className={`w-4 h-4 transition-transform duration-200 ${
-                    mobileExpanded === 'marketing' ? 'rotate-180 text-[#0057ff]' : ''
-                  }`}
-                />
-              </button>
-              {mobileExpanded === 'marketing' && (
-                <div className="pl-3 pt-2 pb-1 flex flex-col gap-2">
-                  {marketingServices.map((service, index) => {
-                    const isRoute = service.href.startsWith('/');
-                    return isRoute ? (
-                      <Link
-                        key={index}
-                        to={service.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="font-medium text-[14px] text-slate-600 hover:text-[#0057ff] py-1.5"
-                      >
-                        {service.name}
-                      </Link>
-                    ) : (
-                      <a
-                        key={index}
-                        href={service.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="font-medium text-[14px] text-slate-600 hover:text-[#0057ff] py-1.5"
-                      >
-                        {service.name}
-                      </a>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
+                <span>Home</span>
+              </Link>
 
-            {/* Mobile Software Services Accordion */}
-            <div className="border-t border-slate-100 pt-3">
-              <button
-                type="button"
-                onClick={() => setMobileExpanded(mobileExpanded === 'software' ? null : 'software')}
-                className="w-full flex items-center justify-between font-bold text-[16px] text-slate-900 py-1"
+              {/* 2. About Us */}
+              <Link
+                to="/about"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setMobileExpanded(null);
+                }}
+                className="border-t border-slate-100 pt-3 font-bold text-[16px] text-slate-900 hover:text-[#0057ff] py-1.5 px-1 transition-colors flex items-center justify-between"
               >
-                <span>Software services</span>
-                <ChevronDown
-                  className={`w-4 h-4 transition-transform duration-200 ${
-                    mobileExpanded === 'software' ? 'rotate-180 text-[#0057ff]' : ''
-                  }`}
-                />
-              </button>
-              {mobileExpanded === 'software' && (
-                <div className="pl-3 pt-2 pb-1 flex flex-col gap-2">
-                  {softwareServices.map((service, index) => {
-                    const isRoute = service.href.startsWith('/');
-                    return isRoute ? (
-                      <Link
-                        key={index}
-                        to={service.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="font-medium text-[14px] text-slate-600 hover:text-[#0057ff] py-1.5"
-                      >
-                        {service.name}
-                      </Link>
-                    ) : (
-                      <a
-                        key={index}
-                        href={service.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="font-medium text-[14px] text-slate-600 hover:text-[#0057ff] py-1.5"
-                      >
-                        {service.name}
-                      </a>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
+                <span>About Us</span>
+              </Link>
 
-            <Link
-              to="/about"
-              onClick={() => setMobileMenuOpen(false)}
-              className="border-t border-slate-100 pt-3 font-bold text-[16px] text-slate-900 py-1"
-            >
-              About
-            </Link>
+              {/* 3. Mobile Marketing Services Accordion */}
+              <div className="border-t border-slate-100 pt-3">
+                <button
+                  type="button"
+                  onClick={() => setMobileExpanded(mobileExpanded === 'marketing' ? null : 'marketing')}
+                  className="w-full flex items-center justify-between font-bold text-[16px] text-slate-900 hover:text-[#0057ff] py-1.5 px-1 transition-colors cursor-pointer text-left"
+                >
+                  <span>Marketing Services</span>
+                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${mobileExpanded === 'marketing' ? 'bg-blue-50 text-[#0057ff]' : 'bg-slate-100/70 text-slate-500'}`}>
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-200 ${
+                        mobileExpanded === 'marketing' ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </div>
+                </button>
+                {mobileExpanded === 'marketing' && (
+                  <div className="pl-3 pr-1 pt-2 pb-2 flex flex-col gap-1 bg-slate-50/60 rounded-xl my-1 border border-slate-100">
+                    {marketingServices.map((service, index) => {
+                      const isRoute = service.href.startsWith('/');
+                      const linkClasses = "font-medium text-[14px] text-slate-700 hover:text-[#0057ff] hover:bg-blue-50/60 px-3 py-2 rounded-lg transition-colors flex items-center justify-between";
+                      return isRoute ? (
+                        <Link
+                          key={index}
+                          to={service.href}
+                          onClick={() => {
+                            setMobileMenuOpen(false);
+                            setMobileExpanded(null);
+                          }}
+                          className={linkClasses}
+                        >
+                          <span>{service.name}</span>
+                          <ArrowRight className="w-3.5 h-3.5 opacity-60" />
+                        </Link>
+                      ) : (
+                        <a
+                          key={index}
+                          href={service.href}
+                          onClick={() => {
+                            setMobileMenuOpen(false);
+                            setMobileExpanded(null);
+                          }}
+                          className={linkClasses}
+                        >
+                          <span>{service.name}</span>
+                          <ArrowRight className="w-3.5 h-3.5 opacity-60" />
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
 
-            <Link
-              to="/faqs"
-              onClick={() => setMobileMenuOpen(false)}
-              className="border-t border-slate-100 pt-3 font-bold text-[16px] text-slate-900 py-1"
-            >
-              FAQs
-            </Link>
+              {/* 4. Mobile Development Services Accordion */}
+              <div className="border-t border-slate-100 pt-3">
+                <button
+                  type="button"
+                  onClick={() => setMobileExpanded(mobileExpanded === 'software' ? null : 'software')}
+                  className="w-full flex items-center justify-between font-bold text-[16px] text-slate-900 hover:text-[#0057ff] py-1.5 px-1 transition-colors cursor-pointer text-left"
+                >
+                  <span>Development Services</span>
+                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${mobileExpanded === 'software' ? 'bg-blue-50 text-[#0057ff]' : 'bg-slate-100/70 text-slate-500'}`}>
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-200 ${
+                        mobileExpanded === 'software' ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </div>
+                </button>
+                {mobileExpanded === 'software' && (
+                  <div className="pl-3 pr-1 pt-2 pb-2 flex flex-col gap-1 bg-slate-50/60 rounded-xl my-1 border border-slate-100">
+                    {softwareServices.map((service, index) => {
+                      const isRoute = service.href.startsWith('/');
+                      const linkClasses = "font-medium text-[14px] text-slate-700 hover:text-[#0057ff] hover:bg-blue-50/60 px-3 py-2 rounded-lg transition-colors flex items-center justify-between";
+                      return isRoute ? (
+                        <Link
+                          key={index}
+                          to={service.href}
+                          onClick={() => {
+                            setMobileMenuOpen(false);
+                            setMobileExpanded(null);
+                          }}
+                          className={linkClasses}
+                        >
+                          <span>{service.name}</span>
+                          <ArrowRight className="w-3.5 h-3.5 opacity-60" />
+                        </Link>
+                      ) : (
+                        <a
+                          key={index}
+                          href={service.href}
+                          onClick={() => {
+                            setMobileMenuOpen(false);
+                            setMobileExpanded(null);
+                          }}
+                          className={linkClasses}
+                        >
+                          <span>{service.name}</span>
+                          <ArrowRight className="w-3.5 h-3.5 opacity-60" />
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
 
-            <Link
-              to="/contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="border-t border-slate-100 pt-3 font-bold text-[16px] text-slate-900 py-1"
-            >
-              Contact
-            </Link>
-
-            <div className="pt-4 border-t border-slate-100">
+              {/* 5. Contact Us */}
               <Link
                 to="/contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full justify-center inline-flex items-center gap-2.5 px-5 py-3 font-['Manrope'] text-[14px] font-bold text-white bg-gradient-to-r from-[#0057ff] to-[#0ea5e9] rounded-xl shadow-[0_4px_14px_rgba(0,87,255,0.35)]"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setMobileExpanded(null);
+                }}
+                className="border-t border-slate-100 pt-3 font-bold text-[16px] text-slate-900 hover:text-[#0057ff] py-1.5 px-1 transition-colors flex items-center justify-between"
               >
-                Book Strategy Call
-                <ArrowRight className="w-3.5 h-3.5 text-white" />
+                <span>Contact Us</span>
               </Link>
+
+              <div className="pt-4 border-t border-slate-100 mt-1">
+                <Link
+                  to="/contact"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setMobileExpanded(null);
+                  }}
+                  className="w-full justify-center inline-flex items-center gap-2.5 px-5 py-3.5 font-['Manrope'] text-[15px] font-bold text-white bg-gradient-to-r from-[#0057ff] to-[#0ea5e9] rounded-xl shadow-[0_6px_20px_rgba(0,87,255,0.35)] active:scale-[0.99] transition-transform"
+                >
+                  <span>Book Strategy Call</span>
+                  <ArrowRight className="w-4 h-4 text-white" />
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );
